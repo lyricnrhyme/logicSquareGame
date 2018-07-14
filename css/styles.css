@@ -1,0 +1,48 @@
+body {
+    background-color: khaki
+}
+
+#titleDiv {
+    width: 1000px;
+    height: 100px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    line-height: 150%;
+}
+
+#gameDiv {
+    width: 1000px;
+    height: 400px;
+    background-color: blue;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#startGameOptions {
+    width: 400px;
+    height:400px;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#playButton, #rulesButton {
+    width: 300px;
+    height:100px;
+    background-color: purple;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    line-height: 150%;
+    margin-top: 10px;
+}
+
+#startImageDiv {
+    width: 500px;
+    height: 400px;
+    background-color: aqua;
+}
