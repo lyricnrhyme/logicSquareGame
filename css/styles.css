@@ -14,7 +14,7 @@ body {
 
 #gameDiv {
     width: 1000px;
-    height: 400px;
+    height: 450px;
     background-color: blue;
     display: flex;
     justify-content: flex-start;
@@ -22,7 +22,7 @@ body {
 
 #startGameOptions {
     width: 400px;
-    height:400px;
+    height:450px;
     background-color: green;
     display: flex;
     flex-direction: column;
@@ -43,6 +43,47 @@ body {
 
 #startImageDiv {
     width: 500px;
-    height: 400px;
+    height: 450px;
     background-color: aqua;
+}
+
+#levelSelectTopDiv {
+    width: 1000px;
+    height: 100px;
+    background-color: red;
+    color: white;
+    font-size: 50px;
+    line-height: 150%;
+}
+
+#returnToStart {
+    width: 300px;
+    height:100px;
+    background-color: purple;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    line-height: 150%;
+}
+
+#levelSelectTitle {
+    width: 500px;
+    height: 100px;
+    background-color: hotpink;
+    text-align: center;
+}
+
+#levelSelectDiv {
+    width: 1000px;
+    height: 450px;
+    background-color: blue;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.levelRows {
+    width: 1000px;
+    height: 225px;
+    background-color: brown;
+    display: flex;
 }
