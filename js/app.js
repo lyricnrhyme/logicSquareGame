@@ -201,26 +201,7 @@ var levelDiv = document.getElementsByClassName("levelDiv");
 var levelNum = document.getElementsByClassName("levelNum");
 var levelImg = document.getElementsByClassName("levelImg");
 var levelSize = document.getElementsByClassName("levelSize");
-
-//Go To Level Function
-function goToLevel() {
-    levelSelectTopDiv.style.display = "none";
-    levelSelectDiv.style.display = "none";
-    gameDiv.style.display = "flex";
-    if (this.id.includes(1)) {
-        console.log(1);
-    } else if (this.id.includes(2)) {
-        console.log(2);
-    } else if (this.id.includes(3)) {
-        console.log(3);
-    } else if (this.id.includes(4)) {
-        console.log(4);
-    } else if (this.id.includes(5)) {
-        console.log(5);
-    } else if (this.id.includes(6)) {
-        console.log(6);
-    }
-}
+var currentAnswers = [];
 
 //Solution Arrays
 level1Answers = [0,1,2,3,4,5,6,8,9,10,14,15,16,18,19,20,21,22,23,24]; //25 squares
@@ -248,6 +229,32 @@ level5Hints = ["","","","","","",4,"",4,"","","","","","",4,"","","",3,3,1,4,1,3
 
 level6Hints = ["","","","",1,"","","","","",1,"","","","","",5,4,4,1,1,1,1,1,1,1,4,4,5,"","",3,3,4,2,3,1,2,1,3,2,4,3,3,"",13,2,1,1,1,1,2,1,2,1,1,1,1,2,13,"","",4,4,"",4,5,4,"","",5,5,"","",4,4,"","",1,2,"","",1,1,1,3,3,1,4,1,1,4,"","",6,6,"","",5,5,"","",1,1,"",1,3,1,"","",2,2,1,1,1,1,"","","",11]; //120 squares
 
+//Go To Level Function
+function goToLevel() {
+    levelSelectTopDiv.style.display = "none";
+    levelSelectDiv.style.display = "none";
+    gameDiv.style.display = "flex";
+    if (this.id.includes(1)) {
+        grid5Div.style.display = "flex";
+        console.log(1);
+    } else if (this.id.includes(2)) {
+        grid5Div.style.display = "flex";
+        console.log(2);
+    } else if (this.id.includes(3)) {
+        grid10Div.style.display = "flex";
+        console.log(3);
+    } else if (this.id.includes(4)) {
+        grid10Div.style.display = "flex";
+        console.log(4);
+    } else if (this.id.includes(5)) {
+        grid15Div.style.display = "flex";
+        console.log(5);
+    } else if (this.id.includes(6)) {
+        grid15Div.style.display = "flex";
+        console.log(6);
+    }
+}
+
 //Making Game Div
 var gameDiv = document.createElement("div");
 gameDiv.id = "gameDiv";
@@ -266,8 +273,56 @@ menuButton.innerHTML = "MENU";
 menuButton.addEventListener("click", openMenu);
 gameControlsDiv.appendChild(menuButton);
 
-//Open Menu Funm
+//Open Menu Function
 function openMenu() {
+    optionsMenu.style.display = "flex";
+}
+
+//Making Options Menu
+var optionsMenu = document.createElement("div");
+optionsMenu.id = "optionsMenu";
+optionsMenu.style.display = "none";
+gameDiv.appendChild(optionsMenu);
+
+//Making Return To Game Button
+var returnButton = document.createElement("div");
+returnButton.id = "returnButton";
+returnButton.innerHTML = "RETURN";
+returnButton.addEventListener("click", returnToGame);
+optionsMenu.appendChild(returnButton);
+
+//Return To Game Function
+function returnToGame() {
+    optionsMenu.style.display = "none";
+}
+
+//Making Rules Option Button
+var rulesOptButton = document.createElement("div");
+rulesOptButton.id = "rulesOptButton";
+rulesOptButton.innerHTML = "RULES";
+rulesOptButton.addEventListener("click", openRules);
+optionsMenu.appendChild(rulesOptButton);
+
+//Making Restart Button
+var restartButton = document.createElement("div");
+restartButton.id = "restartButton";
+restartButton.innerHTML = "RESTART";
+restartButton.addEventListener("click", restartGame);
+optionsMenu.appendChild(restartButton);
+
+//Restart Game Function
+function restartGame() {
+}
+
+//Making Save & Quit Button
+var saveQuitButton = document.createElement("div");
+saveQuitButton.id = "saveQuitButton";
+saveQuitButton.innerHTML = "SAVE & QUIT";
+saveQuitButton.addEventListener("click", saveQuitGame);
+optionsMenu.appendChild(saveQuitButton);
+
+//Save & Quit Function
+function saveQuitGame() {
 }
 
 //Making Color Button
@@ -332,3 +387,107 @@ function moveDown() {
 var gameDisplayDiv = document.createElement("div");
 gameDisplayDiv.id = "gameDisplayDiv";
 gameDiv.appendChild(gameDisplayDiv);
+
+//Making Game Grid Div
+var gameGridDiv = document.createElement("div");
+gameGridDiv.id = "gameGridDiv";
+gameDisplayDiv.appendChild(gameGridDiv);
+
+//Making 5x5 Grid
+var grid5Div = document.createElement("div");
+grid5Div.id = "grid5";
+grid5Div.style.display = "none";
+gameGridDiv.appendChild(grid5Div);
+
+//Making 5x5 Top Hints
+var top5Hints = document.createElement("div");
+top5Hints.id = "top5Hints";
+grid5Div.appendChild(top5Hints);
+
+for (var i=0; i<2; i++) {
+    var makeHintRow5 = document.createElement("div");
+    makeHintRow5.className = "row5";
+    top5Hints.appendChild(makeHintRow5);
+
+    for (j=0; j<5; j++) {
+        makeHintSquare5 = document.createElement("div");
+        makeHintSquare5.className = "square5";
+        makeHintSquare5.addEventListener("click", select5);
+        makeHintRow5.appendChild(makeHintSquare5)
+    }
+}
+
+var row5 = document.getElementsByClassName("row5");
+var sqaure5 = document.getElementsByClassName("square5");
+
+//Select on 5x5 Function
+function select5() {
+}
+
+//Making 10x10 Grid
+var grid10Div = document.createElement("div");
+grid10Div.id = "grid10";
+grid10Div.style.display = "none";
+gameGridDiv.appendChild(grid10Div);
+
+//Making 10x10 Top Hints
+var top10Hints = document.createElement("div");
+top10Hints.id = "top10Hints";
+grid10Div.appendChild(top10Hints);
+
+for (var i=0; i<3; i++) {
+    var makeHintRow10 = document.createElement("div");
+    makeHintRow10.className = "row10";
+    top10Hints.appendChild(makeHintRow10);
+
+    for (j=0; j<10; j++) {
+        makeHintSquare10 = document.createElement("div");
+        makeHintSquare10.className = "square10";
+        makeHintSquare10.addEventListener("click", select10);
+        makeHintRow10.appendChild(makeHintSquare10)
+    }
+}
+
+var row10 = document.getElementsByClassName("row10");
+var sqaure10 = document.getElementsByClassName("square10");
+
+//Select on 10x10 Function
+function select10() {
+}
+
+//Making 15x15 Grid
+var grid15Div = document.createElement("div");
+grid15Div.id = "grid15";
+grid15Div.style.display = "none";
+gameGridDiv.appendChild(grid15Div);
+
+//Making 15x15 Top Hints
+var top15Hints = document.createElement("div");
+top15Hints.id = "top15Hints";
+grid15Div.appendChild(top15Hints);
+
+for (var i=0; i<4; i++) {
+    var makeHintRow15 = document.createElement("div");
+    makeHintRow15.className = "row15";
+    top15Hints.appendChild(makeHintRow15);
+
+    for (j=0; j<15; j++) {
+        makeHintSquare15 = document.createElement("div");
+        makeHintSquare15.className = "square15";
+        makeHintSquare15.addEventListener("click", select15);
+        makeHintRow15.appendChild(makeHintSquare15)
+    }
+}
+
+var row15 = document.getElementsByClassName("row15");
+var sqaure15 = document.getElementsByClassName("square15");
+
+//Select on 15x15 Function
+function select15() {
+}
+
+//5x5 60px
+
+//10x10 30px
+
+//15x15 20px

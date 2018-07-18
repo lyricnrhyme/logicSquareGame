@@ -108,7 +108,7 @@ body {
     height: 400px;
     background-color: greenyellow;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     top: 130px;
     left: 150px;
     display: flex;
@@ -204,6 +204,29 @@ body {
     font-size: 50px;
 }
 
+#optionsMenu {
+    width: 450px;
+    height: 400px;
+    background-color: aqua;
+    position: absolute;
+    z-index: 2;
+    top: 80px;
+    left: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#returnButton, #rulesOptButton, #restartButton, #saveQuitButton {
+    width: 300px;
+    height: 80px;
+    background-color: red;
+    text-align: center;
+    font-size: 40px;
+    line-height: 150%;
+}
+
 #colorButton, #crossButton {
     width: 120px;
     height: 120px;
@@ -218,13 +241,74 @@ body {
     flex-wrap: wrap;
 }
 
-#gameDisplayDiv {
-    width: 750px;
-    height: 550px;
-    background-color: royalblue;
-}
-
 .direction {
     width: 33%;
     height: 33%;
+}
+
+#gameDisplayDiv {
+    width: 750px;
+    height: 550px;
+    display: flex;
+    align-items: center;
+    background-color: royalblue;
+}
+
+#gameGridDiv {
+    width: 504px;
+    height: 504px;
+    background-color: tomato;
+}
+
+#grid5, #grid10, #grid15 {
+    width: 504px;
+    height: 504px;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#top5Hints, #top10Hints, #top15Hints {
+    width: 360px;
+    height: 144px;
+    background-color: tomato;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.row5 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.square5 {
+    width: 20%;
+    height: 100%;
+    border: 1px black solid;
+}
+
+.row10 {
+    width: 100%;
+    height: 25%;
+    display: flex;
+}
+
+.square10 {
+    width: 10%;
+    height: 100%;
+    border: 1px black solid;
+}
+
+.row15 {
+    width: 100%;
+    height: 18%;
+    display: flex;
+}
+
+.square15 {
+    width: 6.67%;
+    height: 100%;
+    border: 1px black solid;
 }
