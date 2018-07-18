@@ -12,7 +12,7 @@ body {
     line-height: 150%;
 }
 
-#gameDiv {
+#startGameDiv {
     width: 1000px;
     height: 450px;
     background-color: blue;
@@ -45,6 +45,14 @@ body {
     width: 500px;
     height: 450px;
     background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#startImage {
+    width: 450px;
+    height: 450px;
 }
 
 #levelSelectTopDiv {
@@ -76,14 +84,134 @@ body {
 #levelSelectDiv {
     width: 1000px;
     height: 450px;
-    background-color: blue;
+    background-color: orange;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.levelRows {
-    width: 1000px;
-    height: 225px;
-    background-color: brown;
+.levelDiv {
+    width: 33%;
+    height: 48%;
+    background-color: green;
+    text-align: center;
+    color: white;
+    font-size: 30px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rulesWindowDiv {
+    width: 700px;
+    height: 400px;
+    background-color: greenyellow;
+    position: absolute;
+    z-index: 2;
+    top: 130px;
+    left: 150px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#rulesDiv {
+    width: 300px;
+    height: 350px;
+    background-color: blanchedalmond;
+    /* padding: 15px; */
+    display: flex;
+}
+
+#rulesVisual {
+    width: 350px;
+    height: 350px;
+    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#rulesImage {
+    width: 200px;
+    height: 200px;
+    /* background-color: blue; */
+    background-size: 100%;
+}
+
+#toggleBar {
+    width: 200px;
+    height: 50px;
+    background-color: indianred;
+    display: flex;
+    justify-content: space-around;
+}
+
+#toggleRight, #toggleLeft {
+    width: 55px;
+    height: 50px;
+    background-color: rebeccapurple;
+}
+
+#closeRulesButton {
+    width: 200px;
+    height: 60px;
+    background-color: purple;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    line-height: 150%;
+    margin-top: 10px;
+}
+
+.levelImg {
+    width: 150px;
+    height: 150px;
+}
+
+.levelSize {
+    width: 150px;
+    height: 30px;
+    background-color: brown;
+    font-size: 20px;
+    line-height: 150%;
+}
+
+#gameDiv {
+    width: 1000px;
+    height: 550px;
+    background-color: salmon;
+}
+
+#gameControlsDiv {
+    width: 250px;
+    height: 550px;
+    background-color: hotpink;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#menuButton {
+    width: 200px;
+    height: 80px;
+    background-color: goldenrod;
+    text-align: center;
+    line-height: 150%;
+    font-size: 50px;
+}
+
+#colorButton, #crossButton {
+    width: 150px;
+    height: 150px;
+    background-color: burlywood;
+}
+
+#gameDisplayDiv {
+    width: 750px;
+    height: 550px;
+    background-color: royalblue;
 }
