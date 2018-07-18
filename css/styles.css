@@ -205,13 +205,26 @@ body {
 }
 
 #colorButton, #crossButton {
+    width: 120px;
+    height: 120px;
+    background-color: burlywood;
+}
+
+#dpadDiv {
     width: 150px;
     height: 150px;
-    background-color: burlywood;
+    background-size: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #gameDisplayDiv {
     width: 750px;
     height: 550px;
     background-color: royalblue;
+}
+
+.direction {
+    width: 33%;
+    height: 33%;
 }

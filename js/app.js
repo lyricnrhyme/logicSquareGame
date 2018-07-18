@@ -291,6 +291,42 @@ function cross() {
 }
 
 //Making Direction Pad Div
+var dpadDiv = document.createElement("div");
+dpadDiv.id = "dpadDiv";
+dpadDiv.style.backgroundImage = 'url("assets/dpad.png")'
+gameControlsDiv.appendChild(dpadDiv);
+
+for (var i=0; i<9; i++) {
+    var makeDirection = document.createElement("div");
+    makeDirection.className = "direction";
+    dpadDiv.appendChild(makeDirection);
+}
+
+var direction = document.getElementsByClassName("direction");
+direction[1].addEventListener("click", moveUp);
+direction[3].addEventListener("click", moveLeft);
+direction[5].addEventListener("click", moveRight);
+direction[7].addEventListener("click", moveDown);
+
+//Move Up Function
+function moveUp() {
+    console.log("UP");
+}
+
+//Move Left Function
+function moveLeft() {
+    console.log("LEFT");
+}
+
+//Move Right Function
+function moveRight() {
+    console.log("RIGHT");
+}
+
+//Move Down Function
+function moveDown() {
+    console.log("DOWN");
+}
 
 //Making Game Display Div
 var gameDisplayDiv = document.createElement("div");
