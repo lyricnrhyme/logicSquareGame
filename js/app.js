@@ -323,6 +323,9 @@ optionsMenu.appendChild(saveQuitButton);
 
 //Save & Quit Function
 function saveQuitGame() {
+    gameDiv.style.display = "none";
+    optionsMenu.style.display = "none";
+    levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
 }
 
 //Making Color Button
@@ -406,23 +409,41 @@ grid5Div.appendChild(top5Hints);
 
 for (var i=0; i<2; i++) {
     var makeHintRow5 = document.createElement("div");
-    makeHintRow5.className = "row5";
+    makeHintRow5.className = "topRow5";
     top5Hints.appendChild(makeHintRow5);
 
     for (j=0; j<5; j++) {
         makeHintSquare5 = document.createElement("div");
         makeHintSquare5.className = "square5";
-        makeHintSquare5.addEventListener("click", select5);
         makeHintRow5.appendChild(makeHintSquare5)
     }
 }
 
-var row5 = document.getElementsByClassName("row5");
-var sqaure5 = document.getElementsByClassName("square5");
+//Making 5x5 Bottom Grid Div
+var bottomGrid5 = document.createElement("div");
+bottomGrid5.id = "bottomGrid5";
+grid5Div.appendChild(bottomGrid5);
 
-//Select on 5x5 Function
-function select5() {
+//Making 5x5 Left Hints
+var left5Hints = document.createElement("div");
+left5Hints.id = "left5Hints";
+bottomGrid5.appendChild(left5Hints);
+
+for (var i=0; i<5; i++) {
+    var makeHintRow5 = document.createElement("div");
+    makeHintRow5.className = "leftRow5";
+    left5Hints.appendChild(makeHintRow5);
+
+    for (j=0; j<2; j++) {
+        makeHintSquare5 = document.createElement("div");
+        makeHintSquare5.className = "square5";
+        makeHintRow5.appendChild(makeHintSquare5)
+    }
 }
+
+var topRow5 = document.getElementsByClassName("topRow5");
+var leftRow5 = document.getElementsByClassName("leftRow5");
+var square5 = document.getElementsByClassName("square5");
 
 //Making 10x10 Grid
 var grid10Div = document.createElement("div");
@@ -437,23 +458,41 @@ grid10Div.appendChild(top10Hints);
 
 for (var i=0; i<3; i++) {
     var makeHintRow10 = document.createElement("div");
-    makeHintRow10.className = "row10";
+    makeHintRow10.className = "topRow10";
     top10Hints.appendChild(makeHintRow10);
 
     for (j=0; j<10; j++) {
         makeHintSquare10 = document.createElement("div");
         makeHintSquare10.className = "square10";
-        makeHintSquare10.addEventListener("click", select10);
         makeHintRow10.appendChild(makeHintSquare10)
     }
 }
 
-var row10 = document.getElementsByClassName("row10");
-var sqaure10 = document.getElementsByClassName("square10");
+//Making 10x10 Bottom Grid Div
+var bottomGrid10 = document.createElement("div");
+bottomGrid10.id = "bottomGrid10";
+grid10Div.appendChild(bottomGrid10);
 
-//Select on 10x10 Function
-function select10() {
+//Making 10x10 Left Hints
+var left10Hints = document.createElement("div");
+left10Hints.id = "left10Hints";
+bottomGrid10.appendChild(left10Hints);
+
+for (var i=0; i<10; i++) {
+    var makeHintRow10 = document.createElement("div");
+    makeHintRow10.className = "leftRow10";
+    left10Hints.appendChild(makeHintRow10);
+
+    for (j=0; j<3; j++) {
+        makeHintSquare10 = document.createElement("div");
+        makeHintSquare10.className = "square10";
+        makeHintRow10.appendChild(makeHintSquare10)
+    }
 }
+
+var topRow10 = document.getElementsByClassName("topRow10");
+var leftRow10 = document.getElementsByClassName("leftRow10");
+var sqaure10 = document.getElementsByClassName("square10");
 
 //Making 15x15 Grid
 var grid15Div = document.createElement("div");
@@ -468,23 +507,23 @@ grid15Div.appendChild(top15Hints);
 
 for (var i=0; i<4; i++) {
     var makeHintRow15 = document.createElement("div");
-    makeHintRow15.className = "row15";
+    makeHintRow15.className = "topRow15";
     top15Hints.appendChild(makeHintRow15);
 
     for (j=0; j<15; j++) {
         makeHintSquare15 = document.createElement("div");
         makeHintSquare15.className = "square15";
-        makeHintSquare15.addEventListener("click", select15);
         makeHintRow15.appendChild(makeHintSquare15)
     }
 }
 
-var row15 = document.getElementsByClassName("row15");
+var topRow15 = document.getElementsByClassName("topRow15");
 var sqaure15 = document.getElementsByClassName("square15");
 
-//Select on 15x15 Function
-function select15() {
-}
+//Making 15x15 Bottom Grid Div
+var bottomGrid15 = document.createElement("div");
+bottomGrid15.id = "bottomGrid15";
+grid15Div.appendChild(bottomGrid15);
 
 //5x5 60px
 

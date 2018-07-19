@@ -265,7 +265,8 @@ body {
     height: 504px;
     background-color: blueviolet;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 #top5Hints, #top10Hints, #top15Hints {
@@ -277,31 +278,52 @@ body {
     justify-content: flex-end;
 }
 
-.row5 {
-    width: 100%;
-    height: 100%;
+#left5Hints, #left10Hints, #left15Hints {
+    width: 144px;
+    height: 360px;
+    background-color: tomato;
     display: flex;
 }
 
+.topRow5 {
+    width: 360px;
+    height: 72px;
+    display: flex;
+
+}
+
+.leftRow5 {
+    width: 144px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+}
+
 .square5 {
-    width: 20%;
-    height: 100%;
+    width: 72px;
+    height: 72px;
     border: 1px black solid;
 }
 
-.row10 {
+.topRow10 {
     width: 100%;
     height: 25%;
     display: flex;
 }
 
+.leftRow10 {
+    width: 144px;
+    height: 36px;
+    display: flex;
+}
+
 .square10 {
-    width: 10%;
-    height: 100%;
+    width: 36px;
+    height: 36px;
     border: 1px black solid;
 }
 
-.row15 {
+.topRow15 {
     width: 100%;
     height: 18%;
     display: flex;
@@ -311,4 +333,20 @@ body {
     width: 6.67%;
     height: 100%;
     border: 1px black solid;
+}
+
+#bottomGrid5, #bottomGrid10, #bottomGrid15 {
+    width: 504px;
+    height: 360px;
+    background-color: greenyellow;
+    display: flex;
+}
+
+#left5Hints, #left10Hints, #left15Hints {
+    width: 144px;
+    height: 360px;
+    background-color: tomato;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
