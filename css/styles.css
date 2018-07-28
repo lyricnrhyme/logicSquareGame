@@ -124,7 +124,7 @@ body {
     display: flex;
 }
 
-#rulesVisual {
+#rulesVisuals {
     width: 350px;
     height: 350px;
     background-color: blanchedalmond;
@@ -263,51 +263,75 @@ body {
 #grid5, #grid10, #grid15 {
     width: 504px;
     height: 504px;
-    background-color: blueviolet;
+    border: 1px solid black;
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
+    flex-direction: column;
 }
 
-#top5Hints, #top10Hints, #top15Hints {
+#topHints5, #topHints10, #topHints15 {
     width: 360px;
     height: 144px;
-    background-color: tomato;
+    background-color: blue;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-}
-
-#left5Hints, #left10Hints, #left15Hints {
-    width: 144px;
-    height: 360px;
-    background-color: tomato;
-    display: flex;
 }
 
 .topRow5 {
     width: 360px;
     height: 72px;
     display: flex;
+}
 
+.topRow10 {
+    width: 360px;
+    height: 36px;
+    display: flex;
+}
+
+.topRow15 {
+    width: 360px;
+    height: 24px;
+    display: flex;
+}
+
+.hintSquares5 {
+    width: 72px;
+    height: 72px;
+    border: 1px solid black;
+}
+
+.hintSquares10 {
+    width: 36px;
+    height: 36px;
+    border: 1px solid black;
+}
+
+.hintSquares15 {
+    width: 24px;
+    height: 24px;
+    border: 1px solid black;
+}
+
+#bottomDiv5, #bottomDiv10, #bottomDiv15 {
+    width: 504px;
+    height: 360px;
+    background-color: green;
+    display: flex;
+}
+
+#leftHints5, #leftHints10, #leftHints15 {
+    width: 144px;
+    height: 360px;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
 }
 
 .leftRow5 {
     width: 144px;
     height: 72px;
-    display: flex;
-    justify-content: center;
-}
-
-.square5 {
-    width: 72px;
-    height: 72px;
-    border: 1px black solid;
-}
-
-.topRow10 {
-    width: 100%;
-    height: 25%;
     display: flex;
 }
 
@@ -315,38 +339,54 @@ body {
     width: 144px;
     height: 36px;
     display: flex;
+    justify-content: flex-end;
 }
 
-.square10 {
+.leftRow15 {
+    width: 144px;
+    height: 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#picGrid5, #picGrid10, #picGrid15 {
+    width: 360px;
+    height: 360px;
+    background-color: pink;
+}
+
+.picRow5 {
+    width: 360px;
+    height: 72px;
+    display: flex;
+}
+
+.picRow10 {
+    width: 360px;
+    height: 36px;
+    display: flex;
+}
+
+.picRow15 {
+    width: 360px;
+    height: 24px;
+    display: flex;
+}
+
+.picSquares5 {
+    width: 72px;
+    height: 72px;
+    border: 1px solid black;
+}
+
+.picSquares10 {
     width: 36px;
     height: 36px;
-    border: 1px black solid;
+    border: 1px solid black;
 }
 
-.topRow15 {
-    width: 100%;
-    height: 18%;
-    display: flex;
-}
-
-.square15 {
-    width: 6.67%;
-    height: 100%;
-    border: 1px black solid;
-}
-
-#bottomGrid5, #bottomGrid10, #bottomGrid15 {
-    width: 504px;
-    height: 360px;
-    background-color: greenyellow;
-    display: flex;
-}
-
-#left5Hints, #left10Hints, #left15Hints {
-    width: 144px;
-    height: 360px;
-    background-color: tomato;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+.picSquares15 {
+    width: 24px;
+    height: 24px;
+    border: 1px solid black;
 }
