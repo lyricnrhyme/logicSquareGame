@@ -186,9 +186,16 @@ let levelDiv = document.getElementsByClassName("levelDiv");
 let levelNum = document.getElementsByClassName("levelNum");
 let levelImg = document.getElementsByClassName("levelImg");
 let levelSize = document.getElementsByClassName("levelSize");
+let highlight = "1px solid yellow";
 let currentAnswers = [];
 let currentHints = [];
-let selected, saved1, saved2, saved3, saved4, saved5, saved6;
+let selected;
+let saved1 = [];
+let saved2 = [];
+let saved3 = [];
+let saved4 = [];
+let saved5 = [];
+let saved6 = [];
 
 ////////////////////
 //Solution & Hints Elements
@@ -232,7 +239,7 @@ function goToLevel() {
         for (let i=0; i<hintSquares5.length; i++) {
             hintSquares5[i].innerHTML = currentHints[i];
         }
-        console.log(1);
+        console.log("Level 1");
     } else if (this.id.includes(2)) {
         grid5.style.display = "flex";
         currentAnswers = level2Answers;
@@ -240,7 +247,7 @@ function goToLevel() {
         for (let i=0; i<hintSquares5.length; i++) {
             hintSquares5[i].innerHTML = currentHints[i];
         }
-        console.log(2);
+        console.log("Level 2");
     } else if (this.id.includes(3)) {
         grid10.style.display = "flex";
         currentAnswers = level3Answers;
@@ -248,7 +255,7 @@ function goToLevel() {
         for (let i=0; i<hintSquares10.length; i++) {
             hintSquares10[i].innerHTML = currentHints[i];
         }
-        console.log(3);
+        console.log("Level 3");
     } else if (this.id.includes(4)) {
         grid10.style.display = "flex";
         currentAnswers = level4Answers;
@@ -256,7 +263,7 @@ function goToLevel() {
         for (let i=0; i<hintSquares10.length; i++) {
             hintSquares10[i].innerHTML = currentHints[i];
         }
-        console.log(4);
+        console.log("Level 4");
     } else if (this.id.includes(5)) {
         grid15.style.display = "flex";
         currentAnswers = level5Answers;
@@ -264,7 +271,7 @@ function goToLevel() {
         for (let i=0; i<hintSquares15.length; i++) {
             hintSquares15[i].innerHTML = currentHints[i];
         }
-        console.log(5);
+        console.log("Level 5");
     } else if (this.id.includes(6)) {
         grid15.style.display = "flex";
         currentAnswers = level6Answers;
@@ -272,11 +279,11 @@ function goToLevel() {
         for (let i=0; i<hintSquares15.length; i++) {
             hintSquares15[i].innerHTML = currentHints[i];
         }
-        console.log(6);
+        console.log("Level 6");
     }
-    picSquares5[0].style.border = "1px solid yellow";
-    picSquares10[0].style.border = "1px solid yellow";
-    picSquares15[0].style.border = "1px solid yellow";
+    picSquares5[0].style.border = highlight;
+    picSquares10[0].style.border = highlight;
+    picSquares15[0].style.border = highlight;
     selected = 0;
 }
 
@@ -347,6 +354,40 @@ function saveQuitGame() {
     gameDiv.style.display = "none";
     optionsMenu.style.display = "none";
     levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
+    if (grid5.style.display === "flex") {
+        for (let i=0; i<picSquares5.length; i++) {
+            if (currentHints === level1Hints) {
+                saved1[i] = picSquares5[i].style.backgroundColor;
+            } else {
+                saved2[i] = picSquares5[i].style.backgroundColor;
+            }
+            picSquares5[i].style.backgroundColor = null;
+        }
+        picSquares5[selected].style.border = "1px solid black";
+        grid5.style.display = "none";
+    } else if (grid10.style.display === "flex") {
+        for (let i=0; i<picSquares10.length; i++) {
+            if (currentHints === level3Hints) {
+                saved3[i] = picSquares10[i].style.backgroundColor;
+            } else {
+                saved4[i] = picSquares10[i].style.backgroundColor;
+            }
+            picSquares10[i].style.backgroundColor = null;
+        }
+        picSquares10[selected].style.border = "1px solid black";
+        grid10.style.display = "none";
+    } else if (grid15.style.display === "flex") {
+        for (let i=0; i<picSquares15.length; i++) {
+            if (currentHints === level5Hints) {
+                saved5[i] = picSquares15[i].style.backgroundColor;
+            } else {
+                saved6[i] = picSquares15[i].style.backgroundColor;
+            }
+            picSquares15[i].style.backgroundColor = null;
+        }
+        picSquares15[selected].style.border = "1px solid black";
+        grid15.style.display = "none";
+    }
 }
 
 //Making Color Button
@@ -391,21 +432,198 @@ direction[7].addEventListener("click", moveDown);
 //Move Up Function
 function moveUp() {
     console.log("UP");
+    if (grid5.style.display === "flex") {
+        for (let i=0; i<5; i) {
+            if (selected === i) {
+                picSquares5[selected].style.border = "1px solid black";
+                selected += 20;
+                picSquares5[selected].style.border = highlight;
+                return;
+            } else {
+                i += 1;
+            }
+        }
+        picSquares5[selected].style.border = "1px solid black";
+        selected -= 5;
+        picSquares5[selected].style.border = highlight;
+
+    } else if (grid10.style.display === "flex") {
+        for (let i=0; i<10; i) {
+            if (selected === i) {
+                picSquares10[selected].style.border = "1px solid black";
+                selected += 90;
+                picSquares10[selected].style.border = highlight;
+                return;
+            } else {
+                i += 1;
+            }
+        }
+        picSquares10[selected].style.border = "1px solid black";
+        selected -= 10;
+        picSquares10[selected].style.border = highlight;
+    } else if (grid15.style.display === "flex") {
+        for (let i=0; i<15; i) {
+            if (selected === i) {
+                picSquares15[selected].style.border = "1px solid black";
+                selected += 210;
+                picSquares15[selected].style.border = highlight;
+                return;
+            } else {
+                i += 1;
+            }
+        }
+        picSquares15[selected].style.border = "1px solid black";
+        selected -= 15;
+        picSquares15[selected].style.border = highlight;
+    }
+    console.log("selected ", selected);
 }
 
 //Move Left Function
 function moveLeft() {
     console.log("LEFT");
+    if (grid5.style.display === "flex") {
+        for (let i=0; i<21; i) {
+            if (selected === i) {
+                picSquares5[selected].style.border = "1px solid black";
+                selected += 4;
+                picSquares5[selected].style.border = highlight;
+                return;
+            } else {
+                i += 5;
+            }
+        }
+        picSquares5[selected].style.border = "1px solid black";
+        selected -= 1;
+        picSquares5[selected].style.border = highlight;
+    } else if (grid10.style.display === "flex") {
+        for (let i=0; i<91; i) {
+            if (selected === i) {
+                picSquares10[selected].style.border = "1px solid black";
+                selected += 9;
+                picSquares10[selected].style.border = highlight;
+                return;
+            } else {
+                i += 10;
+            }
+        }
+        picSquares10[selected].style.border = "1px solid black";
+        selected -= 1;
+        picSquares10[selected].style.border = highlight;
+    } else if (grid15.style.display === "flex") {
+        for (let i=0; i<211; i) {
+            if (selected === i) {
+                picSquares15[selected].style.border = "1px solid black";
+                selected += 14;
+                picSquares15[selected].style.border = highlight;
+                return;
+            } else {
+                i += 15;
+            }
+        }
+        picSquares15[selected].style.border = "1px solid black";
+        selected -= 1;
+        picSquares15[selected].style.border = highlight;
+    }
+    console.log("selected ", selected);
 }
-
+    
 //Move Right Function
 function moveRight() {
     console.log("RIGHT");
+    if (grid5.style.display === "flex") {
+        for (let i=4; i<25; i) {
+            if (selected === i) {
+                picSquares5[selected].style.border = "1px solid black";
+                selected -= 4;
+                picSquares5[selected].style.border = highlight;
+                return;
+            } else {
+                i += 5;
+            }
+        }
+        picSquares5[selected].style.border = "1px solid black";
+        selected += 1;
+        picSquares5[selected].style.border = highlight;
+    } else if (grid10.style.display === "flex") {
+        for (let i=9; i<100; i) {
+            if (selected === i) {
+                picSquares10[selected].style.border = "1px solid black";
+                selected -= 9;
+                picSquares10[selected].style.border = highlight;
+                return;
+            } else {
+                i += 10;
+            }
+        }
+        picSquares10[selected].style.border = "1px solid black";
+        selected += 1;
+        picSquares10[selected].style.border = highlight;
+    } else if (grid15.style.display === "flex") {
+        for (let i=14; i<225; i) {
+            if (selected === i) {
+                picSquares15[selected].style.border = "1px solid black";
+                selected -= 14;
+                picSquares15[selected].style.border = highlight;
+                return;
+            } else {
+                i += 15;
+            }
+        }
+        picSquares15[selected].style.border = "1px solid black";
+        selected += 1;
+        picSquares15[selected].style.border = highlight;
+    }
+    console.log("selected ", selected);
 }
-
+        
 //Move Down Function
 function moveDown() {
     console.log("DOWN");
+    if (grid5.style.display === "flex") {
+        for (let i=20; i<25; i) {
+            if (selected === i) {
+                picSquares5[selected].style.border = "1px solid black";
+                selected -= 20;
+                picSquares5[selected].style.border = highlight;
+                return;
+            } else {
+                i += 1;
+            }
+        }
+        picSquares5[selected].style.border = "1px solid black";
+        selected += 5;
+        picSquares5[selected].style.border = highlight;
+    } else if (grid10.style.display === "flex") {
+        for (let i=90; i<100; i) {
+            if (selected === i) {
+                picSquares10[selected].style.border = "1px solid black";
+                selected -= 90;
+                picSquares10[selected].style.border = highlight;
+                return;
+            } else {
+                i += 1;
+            }
+        }
+        picSquares10[selected].style.border = "1px solid black";
+        selected += 10;
+        picSquares10[selected].style.border = highlight;
+    } else if (grid15.style.display === "flex") {
+        for (let i=210; i<225; i) {
+            if (selected === i) {
+                picSquares15[selected].style.border = "1px solid black";
+                selected -= 210;
+                picSquares15[selected].style.border = highlight;
+                return;
+            } else {
+                i += 1;
+            }
+        }
+        picSquares15[selected].style.border = "1px solid black";
+        selected += 15;
+        picSquares15[selected].style.border = highlight;
+    }
+    console.log("selected ", selected);
 }
 
 //Making Game Display Div
@@ -542,52 +760,50 @@ for (let i=0; i<picSquares15.length; i++) {
     picSquares15[i].addEventListener("click", selectSquare);
 }
 
+//Select Square Function
 function selectSquare() {
     if (grid5.style.display === "flex") {
         for (let i=0; i<picSquares5.length; i++) {
-            if (picSquares5[i].style.border === "1px solid yellow") {
+            if (picSquares5[i].style.border === highlight) {
                 console.log("change from ", i);
                 picSquares5[i].style.border = "1px solid black";
             }
         }
         this.style.border = "1px solid yellow";
         for (let i=0; i<picSquares5.length; i++) {
-            if (picSquares5[i].style.border === "1px solid yellow") {
+            if (picSquares5[i].style.border === highlight) {
                 console.log("change to ", i);
                 selected = i;
             }
         }
     } else if (grid10.style.display === "flex") {
         for (let i=0; i<picSquares10.length; i++) {
-            if (picSquares10[i].style.border === "1px solid yellow") {
+            if (picSquares10[i].style.border === highlight) {
                 console.log("change from ", i);
                 picSquares10[i].style.border = "1px solid black";
             }
         }
-        this.style.border = "1px solid yellow";
+        this.style.border = highlight;
         for (let i=0; i<picSquares10.length; i++) {
-            if (picSquares10[i].style.border === "1px solid yellow") {
+            if (picSquares10[i].style.border === highlight) {
                 console.log("change to ", i);
                 selected = i;
             }
         }
     } else if (grid15.style.display === "flex") {
         for (let i=0; i<picSquares15.length; i++) {
-            if (picSquares15[i].style.border === "1px solid yellow") {
+            if (picSquares15[i].style.border === highlight) {
                 console.log("change from ", i);
                 picSquares15[i].style.border = "1px solid black";
             }
         }
         this.style.border = "1px solid yellow";
         for (let i=0; i<picSquares15.length; i++) {
-            if (picSquares15[i].style.border === "1px solid yellow") {
+            if (picSquares15[i].style.border === highlight) {
                 console.log("change to ", i);
                 selected = i;
             }
         }
     }
-    //make it select by click
-    //for loop if this square highlighted, unhighlight
-    //this.style.border (highlight)
-    //for loop if this square highlighted, selected = i
+    console.log("selected ", selected);
 }
