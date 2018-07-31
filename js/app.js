@@ -270,12 +270,24 @@ function saveQuitGame() {
     levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
     
     for (let i=0; i<currentPicSquares.length; i++) {
+        if (currentPicSquares[i].style.backgroundColor) {
+            currentSaved[i][0] = "color";
+            currentSaved[i][1] = currentPicSquares[i].style.backgroundColor;
+        } else if (currentPicSquares[i].innerHTML) {
+            currentSaved[i][0] = "cross";
+            currentSaved[i][1] = currentPicSquares[i].innerHTML;
+        } else {
+            currentSaved[i] = [];
+        }
+        
         currentSaved[i] = currentPicSquares[i].style.backgroundColor;
         currentPicSquares[i].style.backgroundColor = null;
     }
     currentSaved.push(mistakes, timer);
     currentPicSquares[selected].style.border = "1px solid black";
     currentGrid.style.display = "none";
+    mistakesCounter.innerHTML = 0;
+    timerCounter.innerHTML = 0;
     // if (grid5.style.display === "flex") {
     //     for (let i=0; i<picSquares5.length; i++) {
     //         if (currentHints === level1Hints) {
@@ -335,46 +347,18 @@ colorButton.addEventListener("click", color);
 
 //Color Function
 function color() {
-    if (grid5.style.display === "flex") {
-        for (let i=0; i<currentAnswers.length; i++) {
-            if (selected === currentAnswers[i]) {
-                picSquares5[selected].style.backgroundColor = "cornflowerblue";
-                picSquares5[selected].innerHTML = "";
-                console.log("COLOR");
-                return;   
-            }
+    for (let i=0; i<currentAnswers.length; i++) {
+        if (selected === currentAnswers[i]) {
+            currentPicSquares[selected].style.backgroundColor = "cornflowerblue";
+            currentPicSquares[selected].innerHTML = "";
+            console.log("COLOR");
+            return;
         }
-        mistakes += 1;
-        mistakesCounter.innerHTML = mistakes;
-        console.log("WRONG ", mistakes);
-        cross();
-    } else if (grid10.style.display === "flex") {
-        for (let i=0; i<currentAnswers.length; i++) {
-            if (selected === currentAnswers[i]) {
-                picSquares10[selected].style.backgroundColor = "cornflowerblue";
-                picSquares10[selected].innerHTML = "";
-                console.log("COLOR");
-                return;   
-            }
-        }
-        mistakes += 1;
-        mistakesCounter.innerHTML = mistakes;
-        console.log("WRONG ", mistakes);
-        cross();
-    } else if (grid15.style.display === "flex") {
-        for (let i=0; i<currentAnswers.length; i++) {
-            if (selected === currentAnswers[i]) {
-                picSquares15[selected].style.backgroundColor = "cornflowerblue";
-                picSquares15[selected].innerHTML = "";
-                console.log("COLOR");
-                return;   
-            }
-        }
-        mistakes += 1;
-        mistakesCounter.innerHTML = mistakes;
-        console.log("WRONG ", mistakes);
-        cross();
     }
+    mistakes += 1;
+    mistakesCounter.innerHTML = mistakes;
+    console.log("WRONG ", mistakes);
+    cross();
 }
 
 //Making Cross Button
@@ -385,31 +369,13 @@ crossButton.addEventListener("click", cross);
 
 //Cross Function
 function cross() {
-    if (grid5.style.display === "flex") {
-        for (let i=0; i<currentAnswers.length; i++) {
-            if (selected === currentAnswers[i]) {
-                picSquares5[selected].style.backgroundColor = null; 
-            }
+    for (let i=0; i<currentAnswers.length; i++) {
+        if (selected === currentAnswers[i]) {
+            currentPicSquares[selected].style.backgroundColor = null;
         }
-        picSquares5[selected].innerHTML = "X";
-        console.log("CROSS");
-    } else if (grid10.style.display === "flex") {
-        for (let i=0; i<currentAnswers.length; i++) {
-            if (selected === currentAnswers[i]) {
-                picSquares10[selected].style.backgroundColor = null;
-            }
-        }
-        picSquares10[selected].innerHTML = "X";
-        console.log("CROSS");
-    } else if (grid15.style.display === "flex") {
-        for (let i=0; i<currentAnswers.length; i++) {
-            if (selected === currentAnswers[i]) {
-                picSquares15[selected].style.backgroundColor = null; 
-            }
-        }
-        picSquares15[selected].innerHTML = "X";
-        console.log("CROSS");
     }
+    currentPicSquares[selected].innerHTML = "X";
+    console.log("CROSS");
 }
 
 //Making Direction Pad Div
@@ -646,7 +612,6 @@ function makeGrid(rows, columns, rowName, squareName, append) {
             makeRows.appendChild(makeSquares);
         }
     }
-
 }
 
 ////////////////////
@@ -874,22 +839,22 @@ function goToLevel() {
                 currentHintSquares = levelList[i].hintSquare;
                 currentPicSquares = levelList[i].picSquare;
                 currentSaved = levelList[i].saveFile;
-                currentGrid.style.display = "flex";
             }
         }
-        if (currentSaved) {
-            for (let i=0; i<currentPicSquares.length; i++) {
-                currentPicSquares[i].style.backgroundColor = currentSaved[i];
-                mistakesCounter.innerHTML = currentSaved[currentSaved.length-2];
-                timerCounter.innerHTML = currentSaved[currentSaved.length-1];
-            }
+    }
+    mistakesCounter.innerHTML = 0;
+    timerCounter.innerHTML = 0;
+    currentPicSquares[0].style.border = highlight;
+    selected = 0;
+    currentGrid.style.display = "flex";
+    for (let i=0; i<currentHintSquares.length; i++) {
+        currentHintSquares[i].innerHTML = currentHints[i];
+    }
+    if (currentSaved) {
+        for (let i=0; i<currentPicSquares.length; i++) {
+            currentPicSquares[i].style.backgroundColor = currentSaved[i];
+            mistakesCounter.innerHTML = currentSaved[currentSaved.length-2];
+            timerCounter.innerHTML = currentSaved[currentSaved.length-1];
         }
-        for (let i=0; i<currentHintSquares.length; i++) {
-            currentHintSquares[i].innerHTML = currentHints[i];
-        }
-        mistakesCounter.innerHTML = 0;
-        timerCounter.innerHTML = 0;
-        currentPicSquares[0].style.border = highlight;
-        selected = 0;
     }
 }
