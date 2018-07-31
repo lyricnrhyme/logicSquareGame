@@ -310,12 +310,20 @@ body {
     width: 36px;
     height: 36px;
     border: 1px solid black;
+    color: white;
+    text-align: center;
+    font-size: 23px;
+    line-height: 175%;
 }
 
 .hintSquares15 {
     width: 24px;
     height: 24px;
     border: 1px solid black;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    line-height: 175%;
 }
 
 #bottomDiv5, #bottomDiv10, #bottomDiv15 {
@@ -381,18 +389,27 @@ body {
     width: 72px;
     height: 72px;
     border: 1px solid black;
+    text-align: center;
+    font-size: 40px;
+    line-height: 175%;
 }
 
 .picSquares10 {
     width: 36px;
     height: 36px;
     border: 1px solid black;
+    text-align: center;
+    font-size: 23px;
+    line-height: 175%;
 }
 
 .picSquares15 {
     width: 24px;
     height: 24px;
     border: 1px solid black;
+    text-align: center;
+    font-size: 15px;
+    line-height: 175%;
 }
 
 #gameInfoDiv {
@@ -419,6 +436,13 @@ body {
 }
 
 #captionDiv {
+    width: 246px;
+    height: 100px;
+    background-color: indianred;
+    text-align: center;
+}
+
+#finishGame {
     width: 246px;
     height: 100px;
     background-color: indianred;

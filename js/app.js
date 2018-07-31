@@ -189,6 +189,8 @@ let levelSize = document.getElementsByClassName("levelSize");
 let highlight = "1px solid yellow";
 let currentAnswers = [];
 let currentHints = [];
+let currentGrid;
+let currentPicSquares;
 let selected;
 let mistakes = 0;
 let timer = 0;
@@ -198,138 +200,6 @@ let saved3 = [];
 let saved4 = [];
 let saved5 = [];
 let saved6 = [];
-
-////////////////////
-//Solution & Hints Elements
-////////////////////
-
-//Solution Arrays
-const level1Answers = [0,1,2,3,4,5,6,8,9,10,14,15,16,18,19,20,21,22,23,24]; //25 squares
-
-const level2Answers = [2,7,8,12,14,15,16,17,20,21,22]; //25 squares
-
-const level3Answers = [1,3,10,12,14,22,41,42,43,44,47,49,50,51,52,53,54,55,57,58,59,60,62,63,64,65,66,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,91,92,93,94,95,96,97]; //100 squares
-
-const level4Answers = [2,3,6,7,11,12,13,14,15,16,17,18,20,21,22,23,25,27,28,29,30,31,32,38,39,40,41,42,48,49,50,51,52,53,57,58,59,61,62,63,64,66,67,68,72,73,74,75,76,77,83,84,85,86,94,95]; //100 squares
-
-const level5Answers = [0,1,2,3,6,7,8,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,48,49,50,51,53,54,55,56,59,61,73,76,77,87,88,90,91,92,94,95,96,98,99,100,102,103,104,105,106,107,110,114,117,118,119,120,121,122,132,133,134,136,137,138,146,147,148,151,152,153,157,161,162,163,165,166,167,168,171,173,176,177,178,179,180,181,182,183,184,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,216,217,218,221,222,223,224]; //225 squares
-
-const level6Answers = [0,1,2,3,11,12,13,14,15,16,17,18,20,21,22,23,24,26,27,28,29,30,31,32,33,34,40,41,42,43,44,45,46,47,48,56,57,58,59,60,61,73,74,75,89,90,93,94,95,99,100,101,104,105,106,107,108,110,114,116,117,118,119,120,121,122,123,124,125,129,130,131,132,133,134,135,136,137,138,139,145,146,147,148,149,150,164,165,171,172,173,179,180,181,187,193,194,196,201,203,208,212,213,214,215,216,217,218,219,220,221,222]; //225 squares
-
-//Hint Arrays
-const level1Hints = ["",2,1,2,"",5,2,1,2,5,"",5,2,2,1,1,2,2,"",5]; //20 squares
-
-const level2Hints = ["","","","","",2,2,5,1,1,"",1,"",2,1,1,"",3,"",3]; //20 squares
-
-const level3Hints = ["",1,"","","","","","","","",1,2,2,1,1,"","",2,"","",4,3,6,6,6,5,4,3,4,4,"",1,1,1,1,1,"","",1,"","",0,4,1,1,"",6,3,1,5,2,"","",10,"","",9,"","",7]; //60 squares
-
-const level4Hints = ["","","","","","","","","","","","","",3,1,2,2,3,"","",4,6,8,4,4,3,3,3,6,4,"",2,2,"","",8,4,1,3,"",3,2,"",3,2,"",4,3,"",4,3,"","",6,"","",4,"","",2]; //60 squares
-
-const level5Hints = ["","","","","","",4,"",4,"","","","","","",4,"","","",3,3,1,4,1,3,3,"","","",4,3,3,3,4,1,2,1,2,1,2,1,4,3,3,3,4,11,10,6,2,1,2,2,2,1,2,6,10,11,4,"",4,3,4,"","","",15,"","","",15,"",1,9,1,"","",1,1,"","",2,2,3,3,3,3,3,1,1,3,"","",3,3,"",3,1,3,"",3,1,3,4,1,1,4,"","",5,5,"","","",15,"",4,3,4]; //120 squares
-
-const level6Hints = ["","","","",1,"","","","","",1,"","","","","",5,4,4,1,1,1,1,1,1,1,4,4,5,"","",3,3,4,2,3,1,2,1,3,2,4,3,3,"",13,2,1,1,1,1,2,1,2,1,1,1,1,2,13,"","",4,4,"",4,5,4,"","",5,5,"","",4,4,"","",1,2,"","",1,1,1,3,3,1,4,1,1,4,"","",6,6,"","",5,5,"","",1,1,"",1,3,1,"","",2,2,1,1,1,1,"","","",11]; //120 squares
-
-//Go To Level Function
-function goToLevel() {
-    levelSelectTopDiv.style.display = "none";
-    levelSelectDiv.style.display = "none";
-    gameDiv.style.display = "flex";
-    if (this.id.includes(1)) {
-        grid5.style.display = "flex";
-        currentAnswers = level1Answers;
-        currentHints = level1Hints;
-        for (let i=0; i<hintSquares5.length; i++) {
-            hintSquares5[i].innerHTML = currentHints[i];
-        }
-        if (saved1) {
-            for (let i=0; i<picSquares5.length; i++) {
-                picSquares5[i].style.backgroundColor = saved1[i]
-                mistakesCounter.innerHTML = saved1[saved1.length-2]
-                timerCounter.innerHTML = saved1[saved1.length-1];
-            }
-        }
-        console.log("Level 1");
-    } else if (this.id.includes(2)) {
-        grid5.style.display = "flex";
-        currentAnswers = level2Answers;
-        currentHints = level2Hints;
-        for (let i=0; i<hintSquares5.length; i++) {
-            hintSquares5[i].innerHTML = currentHints[i];
-        }
-        if (saved2) {
-            for (let i=0; i<picSquares5.length; i++) {
-                picSquares5[i].style.backgroundColor = saved2[i]
-                mistakesCounter.innerHTML = saved2[saved2.length-2]
-                timerCounter.innerHTML = saved2[saved2.length-1];
-            }
-        }
-        console.log("Level 2");
-    } else if (this.id.includes(3)) {
-        grid10.style.display = "flex";
-        currentAnswers = level3Answers;
-        currentHints = level3Hints;
-        for (let i=0; i<hintSquares10.length; i++) {
-            hintSquares10[i].innerHTML = currentHints[i];
-        }
-        if (saved3) {
-            for (let i=0; i<picSquares10.length; i++) {
-                picSquares10[i].style.backgroundColor = saved3[i]
-                mistakesCounter.innerHTML = saved3[saved3.length-2]
-                timerCounter.innerHTML = saved3[saved3.length-1];
-            }
-        }
-        console.log("Level 3");
-    } else if (this.id.includes(4)) {
-        grid10.style.display = "flex";
-        currentAnswers = level4Answers;
-        currentHints = level4Hints;
-        for (let i=0; i<hintSquares10.length; i++) {
-            hintSquares10[i].innerHTML = currentHints[i];
-        }
-        if (saved4) {
-            for (let i=0; i<picSquares10.length; i++) {
-                picSquares10[i].style.backgroundColor = saved4[i]
-                mistakesCounter.innerHTML = saved4[saved4.length-2]
-                timerCounter.innerHTML = saved4[saved4.length-1];
-            }
-        }
-        console.log("Level 4");
-    } else if (this.id.includes(5)) {
-        grid15.style.display = "flex";
-        currentAnswers = level5Answers;
-        currentHints = level5Hints;
-        for (let i=0; i<hintSquares15.length; i++) {
-            hintSquares15[i].innerHTML = currentHints[i];
-        }
-        if (saved5) {
-            for (let i=0; i<picSquares15.length; i++) {
-                picSquares15[i].style.backgroundColor = saved5[i]
-                mistakesCounter.innerHTML = saved5[saved5.length-2]
-                timerCounter.innerHTML = saved5[saved5.length-1];
-            }
-        }
-        console.log("Level 5");
-    } else if (this.id.includes(6)) {
-        grid15.style.display = "flex";
-        currentAnswers = level6Answers;
-        currentHints = level6Hints;
-        for (let i=0; i<hintSquares15.length; i++) {
-            hintSquares15[i].innerHTML = currentHints[i];
-        }
-        if (saved6) {
-            for (let i=0; i<picSquares15.length; i++) {
-                picSquares15[i].style.backgroundColor = saved6[i]
-                mistakesCounter.innerHTML = saved6[saved6.length-2]
-                timerCounter.innerHTML = saved6[saved6.length-1];
-            }
-        }
-        console.log("Level 6");
-    }
-    picSquares5[0].style.border = highlight;
-    picSquares10[0].style.border = highlight;
-    picSquares15[0].style.border = highlight;
-    selected = 0;
-}
 
 ////////////////////
 //Game Grid Elements
@@ -398,55 +268,63 @@ function saveQuitGame() {
     gameDiv.style.display = "none";
     optionsMenu.style.display = "none";
     levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
-    if (grid5.style.display === "flex") {
-        for (let i=0; i<picSquares5.length; i++) {
-            if (currentHints === level1Hints) {
-                saved1[i] = picSquares5[i].style.backgroundColor;
-            } else {
-                saved2[i] = picSquares5[i].style.backgroundColor;
-            }
-            picSquares5[i].style.backgroundColor = null;
-        }
-        if (currentHints === level1Hints) {
-            saved1.push(mistakes, timer);
-        } else {
-            saved2.push(mistakes, timer);
-        }
-        picSquares5[selected].style.border = "1px solid black";
-        grid5.style.display = "none";
-    } else if (grid10.style.display === "flex") {
-        for (let i=0; i<picSquares10.length; i++) {
-            if (currentHints === level3Hints) {
-                saved3[i] = picSquares10[i].style.backgroundColor;
-            } else {
-                saved4[i] = picSquares10[i].style.backgroundColor;
-            }
-            picSquares10[i].style.backgroundColor = null;
-        }
-        if (currentHints === level3Hints) {
-            saved3.push(mistakes, timer);
-        } else {
-            saved4.push(mistakes, timer);
-        }
-        picSquares10[selected].style.border = "1px solid black";
-        grid10.style.display = "none";
-    } else if (grid15.style.display === "flex") {
-        for (let i=0; i<picSquares15.length; i++) {
-            if (currentHints === level5Hints) {
-                saved5[i] = picSquares15[i].style.backgroundColor;
-            } else {
-                saved6[i] = picSquares15[i].style.backgroundColor;
-            }
-            picSquares15[i].style.backgroundColor = null;
-        }
-        if (currentHints === level5Hints) {
-            saved5.push(mistakes, timer);
-        } else {
-            saved6.push(mistakes, timer);
-        }
-        picSquares15[selected].style.border = "1px solid black";
-        grid15.style.display = "none";
+    
+    for (let i=0; i<currentPicSquares.length; i++) {
+        currentSaved[i] = currentPicSquares[i].style.backgroundColor;
+        currentPicSquares[i].style.backgroundColor = null;
     }
+    currentSaved.push(mistakes, timer);
+    currentPicSquares[selected].style.border = "1px solid black";
+    currentGrid.style.display = "none";
+    // if (grid5.style.display === "flex") {
+    //     for (let i=0; i<picSquares5.length; i++) {
+    //         if (currentHints === level1Hints) {
+    //             saved1[i] = picSquares5[i].style.backgroundColor;
+    //         } else {
+    //             saved2[i] = picSquares5[i].style.backgroundColor;
+    //         }
+    //         picSquares5[i].style.backgroundColor = null;
+    //     }
+    //     if (currentHints === level1Hints) {
+    //         saved1.push(mistakes, timer);
+    //     } else {
+    //         saved2.push(mistakes, timer);
+    //     }
+    //     picSquares5[selected].style.border = "1px solid black";
+    //     grid5.style.display = "none";
+    // } else if (grid10.style.display === "flex") {
+    //     for (let i=0; i<picSquares10.length; i++) {
+    //         if (currentHints === level3Hints) {
+    //             saved3[i] = picSquares10[i].style.backgroundColor;
+    //         } else {
+    //             saved4[i] = picSquares10[i].style.backgroundColor;
+    //         }
+    //         picSquares10[i].style.backgroundColor = null;
+    //     }
+    //     if (currentHints === level3Hints) {
+    //         saved3.push(mistakes, timer);
+    //     } else {
+    //         saved4.push(mistakes, timer);
+    //     }
+    //     picSquares10[selected].style.border = "1px solid black";
+    //     grid10.style.display = "none";
+    // } else if (grid15.style.display === "flex") {
+    //     for (let i=0; i<picSquares15.length; i++) {
+    //         if (currentHints === level5Hints) {
+    //             saved5[i] = picSquares15[i].style.backgroundColor;
+    //         } else {
+    //             saved6[i] = picSquares15[i].style.backgroundColor;
+    //         }
+    //         picSquares15[i].style.backgroundColor = null;
+    //     }
+    //     if (currentHints === level5Hints) {
+    //         saved5.push(mistakes, timer);
+    //     } else {
+    //         saved6.push(mistakes, timer);
+    //     }
+    //     picSquares15[selected].style.border = "1px solid black";
+    //     grid15.style.display = "none";
+    // }
 }
 
 //Making Color Button
@@ -884,50 +762,21 @@ for (let i=0; i<picSquares15.length; i++) {
 
 //Select Square Function
 function selectSquare() {
-    if (grid5.style.display === "flex") {
-        for (let i=0; i<picSquares5.length; i++) {
-            if (picSquares5[i].style.border === highlight) {
-                console.log("change from ", i);
-                picSquares5[i].style.border = "1px solid black";
-            }
+    for (let i=0; i<currentPicSquares.length; i++) {
+        if (currentPicSquares[i].style.border === highlight) {
+            console.log("change from ", i);
+            currentPicSquares[i].style.border = "1px solid black";
         }
-        this.style.border = "1px solid yellow";
-        for (let i=0; i<picSquares5.length; i++) {
-            if (picSquares5[i].style.border === highlight) {
-                console.log("change to ", i);
-                selected = i;
-            }
-        }
-    } else if (grid10.style.display === "flex") {
-        for (let i=0; i<picSquares10.length; i++) {
-            if (picSquares10[i].style.border === highlight) {
-                console.log("change from ", i);
-                picSquares10[i].style.border = "1px solid black";
-            }
-        }
-        this.style.border = highlight;
-        for (let i=0; i<picSquares10.length; i++) {
-            if (picSquares10[i].style.border === highlight) {
-                console.log("change to ", i);
-                selected = i;
-            }
-        }
-    } else if (grid15.style.display === "flex") {
-        for (let i=0; i<picSquares15.length; i++) {
-            if (picSquares15[i].style.border === highlight) {
-                console.log("change from ", i);
-                picSquares15[i].style.border = "1px solid black";
-            }
-        }
-        this.style.border = "1px solid yellow";
-        for (let i=0; i<picSquares15.length; i++) {
-            if (picSquares15[i].style.border === highlight) {
-                console.log("change to ", i);
-                selected = i;
-            }
+    }
+    this.style.border = "1px solid yellow";
+    for (let i=0; i<currentPicSquares.length; i++) {
+        if (currentPicSquares[i].style.border === highlight) {
+            console.log("change to ", i);
+            selected = i;
         }
     }
     console.log("selected ", selected);
+    console.log("************");
 }
 
 //Making Game Info Div
@@ -942,7 +791,7 @@ mistakesDiv.innerHTML = "Mistakes:";
 //Making Mistakes Counter
 newDiv("mistakesCounter", mistakesDiv);
 let mistakesCounter = document.getElementById("mistakesCounter");
-mistakesCounter.innerHTML = mistakes;
+mistakesCounter.innerHTML = 0;
 
 //Making Timer Div
 newDiv("timerDiv", gameInfoDiv);
@@ -952,9 +801,95 @@ timerDiv.innerHTML = "Timer:";
 //Making Timer Counter
 newDiv("timerCounter", timerDiv);
 let timerCounter = document.getElementById("timerCounter");
-timerCounter.innerHTML = timer;
+timerCounter.innerHTML = 0;
 
 //Making Caption Div
 newDiv("captionDiv", gameInfoDiv);
 const captionDiv = document.getElementById("captionDiv");
 captionDiv.innerHTML = "";
+
+//Making Finish Button
+newDiv("finishGame", gameInfoDiv);
+const finishGame = document.getElementById("finishGame");
+finishGame.innerHTML = "";
+
+//Finish Function
+function finish() {
+    //return to levelSelect
+    //reset selected level
+    //replace ? pic with actual pic
+}
+
+////////////////////
+//Solution & Hints Elements
+////////////////////
+
+//Solution Arrays
+const level1Answers = [0,1,2,3,4,5,6,8,9,10,14,15,16,18,19,20,21,22,23,24]; //25 squares
+
+const level2Answers = [2,7,8,12,14,15,16,17,20,21,22]; //25 squares
+
+const level3Answers = [1,3,10,12,14,22,41,42,43,44,47,49,50,51,52,53,54,55,57,58,59,60,62,63,64,65,66,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,91,92,93,94,95,96,97]; //100 squares
+
+const level4Answers = [2,3,6,7,11,12,13,14,15,16,17,18,20,21,22,23,25,27,28,29,30,31,32,38,39,40,41,42,48,49,50,51,52,53,57,58,59,61,62,63,64,66,67,68,72,73,74,75,76,77,83,84,85,86,94,95]; //100 squares
+
+const level5Answers = [0,1,2,3,6,7,8,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,48,49,50,51,53,54,55,56,59,61,73,76,77,87,88,90,91,92,94,95,96,98,99,100,102,103,104,105,106,107,110,114,117,118,119,120,121,122,132,133,134,136,137,138,146,147,148,151,152,153,157,161,162,163,165,166,167,168,171,173,176,177,178,179,180,181,182,183,184,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,216,217,218,221,222,223,224]; //225 squares
+
+const level6Answers = [0,1,2,3,11,12,13,14,15,16,17,18,20,21,22,23,24,26,27,28,29,30,31,32,33,34,40,41,42,43,44,45,46,47,48,56,57,58,59,60,61,73,74,75,89,90,93,94,95,99,100,101,104,105,106,107,108,110,114,116,117,118,119,120,121,122,123,124,125,129,130,131,132,133,134,135,136,137,138,139,145,146,147,148,149,150,164,165,171,172,173,179,180,181,187,193,194,196,201,203,208,212,213,214,215,216,217,218,219,220,221,222]; //225 squares
+
+//Hint Arrays
+const level1Hints = ["",2,1,2,"",5,2,1,2,5,"",5,2,2,1,1,2,2,"",5]; //20 squares
+
+const level2Hints = ["","","","","",2,2,5,1,1,"",1,"",2,1,1,"",3,"",3]; //20 squares
+
+const level3Hints = ["",1,"","","","","","","","",1,2,2,1,1,"","",2,"","",4,3,6,6,6,5,4,3,4,4,"",1,1,1,1,1,"","",1,"","",0,4,1,1,"",6,3,1,5,2,"","",10,"","",9,"","",7]; //60 squares
+
+const level4Hints = ["","","","","","","","","","","","","",3,1,2,2,3,"","",4,6,8,4,4,3,3,3,6,4,"",2,2,"","",8,4,1,3,"",3,2,"",3,2,"",4,3,"",4,3,"","",6,"","",4,"","",2]; //60 squares
+
+const level5Hints = ["","","","","","",4,"",4,"","","","","","",4,"","","",3,3,1,4,1,3,3,"","","",4,3,3,3,4,1,2,1,2,1,2,1,4,3,3,3,4,11,10,6,2,1,2,2,2,1,2,6,10,11,4,"",4,3,4,"","","",15,"","","",15,"",1,9,1,"","",1,1,"","",2,2,3,3,3,3,3,1,1,3,"","",3,3,"",3,1,3,"",3,1,3,4,1,1,4,"","",5,5,"","","",15,"",4,3,4]; //120 squares
+
+const level6Hints = ["","","","",1,"","","","","",1,"","","","","",5,4,4,1,1,1,1,1,1,1,4,4,5,"","",3,3,4,2,3,1,2,1,3,2,4,3,3,"",13,2,1,1,1,1,2,1,2,1,1,1,1,2,13,"","",4,4,"",4,5,4,"","",5,5,"","",4,4,"","",1,2,"","",1,1,1,3,3,1,4,1,1,4,"","",6,6,"","",5,5,"","",1,1,"",1,3,1,"","",2,2,1,1,1,1,"","","",11]; //120 squares
+
+const levelList = 
+    [{id: 1, answers: level1Answers, hints: level1Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, saveFile: saved1},
+    {id: 2, answers: level2Answers, hints: level2Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, saveFile: saved2},
+    {id: 3, answers: level3Answers, hints: level3Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, saveFile: saved3},
+    {id: 4, answers: level4Answers, hints: level4Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, saveFile: saved4},
+    {id: 5, answers: level5Answers, hints: level5Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, saveFile: saved5},
+    {id: 6, answers: level6Answers, hints: level6Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, saveFile: saved6}]
+
+//Go To Level Function
+function goToLevel() {
+    levelSelectTopDiv.style.display = "none";
+    levelSelectDiv.style.display = "none";
+    gameDiv.style.display = "flex";
+    for (let i=0; i<levelDiv.length; i++) {
+        if (levelDiv[i] === this) {
+            console.log(i+1);
+            if (levelList[i].id === (i+1)) {
+                console.log(levelList[i]);
+                currentAnswers = levelList[i].answers;
+                currentHints = levelList[i].hints;
+                currentGrid = levelList[i].grid;
+                currentHintSquares = levelList[i].hintSquare;
+                currentPicSquares = levelList[i].picSquare;
+                currentSaved = levelList[i].saveFile;
+                currentGrid.style.display = "flex";
+            }
+        }
+        if (currentSaved) {
+            for (let i=0; i<currentPicSquares.length; i++) {
+                currentPicSquares[i].style.backgroundColor = currentSaved[i];
+                mistakesCounter.innerHTML = currentSaved[currentSaved.length-2];
+                timerCounter.innerHTML = currentSaved[currentSaved.length-1];
+            }
+        }
+        for (let i=0; i<currentHintSquares.length; i++) {
+            currentHintSquares[i].innerHTML = currentHints[i];
+        }
+        mistakesCounter.innerHTML = 0;
+        timerCounter.innerHTML = 0;
+        currentPicSquares[0].style.border = highlight;
+        selected = 0;
+    }
+}
