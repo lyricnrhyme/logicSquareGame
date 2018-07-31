@@ -190,6 +190,8 @@ let highlight = "1px solid yellow";
 let currentAnswers = [];
 let currentHints = [];
 let selected;
+let mistakes = 0;
+let timer = 0;
 let saved1 = [];
 let saved2 = [];
 let saved3 = [];
@@ -398,7 +400,43 @@ colorButton.addEventListener("click", color);
 
 //Color Function
 function color() {
-    console.log("COLOR");
+    if (grid5.style.display === "flex") {
+        for (let i=0; i<currentAnswers.length; i++) {
+            if (selected === currentAnswers[i]) {
+                picSquares5[selected].style.backgroundColor = "cornflowerblue";
+                console.log("COLOR");
+                return;   
+            }
+        }
+        mistakes += 1;
+        mistakesCounter.innerHTML = mistakes;
+        console.log("WRONG ", mistakes);
+        cross();
+    } else if (grid10.style.display === "flex") {
+        for (let i=0; i<currentAnswers.length; i++) {
+            if (selected === currentAnswers[i]) {
+                picSquares10[selected].style.backgroundColor = "cornflowerblue";
+                console.log("COLOR");
+                return;   
+            }
+        }
+        mistakes += 1;
+        mistakesCounter.innerHTML = mistakes;
+        console.log("WRONG ", mistakes);
+        cross();
+    } else if (grid15.style.display === "flex") {
+        for (let i=0; i<currentAnswers.length; i++) {
+            if (selected === currentAnswers[i]) {
+                picSquares15[selected].style.backgroundColor = "cornflowerblue";
+                console.log("COLOR");
+                return;   
+            }
+        }
+        mistakes += 1;
+        mistakesCounter.innerHTML = mistakes;
+        console.log("WRONG ", mistakes);
+        cross();
+    }
 }
 
 //Making Cross Button
@@ -409,7 +447,43 @@ crossButton.addEventListener("click", cross);
 
 //Cross Function
 function cross() {
-    console.log("CROSS");
+    if (grid5.style.display === "flex") {
+        for (let i=0; i<currentAnswers.length; i++) {
+            if (selected === currentAnswers[i]) {
+                mistakes += 1;
+                mistakesCounter.innerHTML = mistakes;
+                console.log("WRONG ", mistakes);
+                color();
+                return;   
+            }
+        }
+        picSquares5[selected].innerHTML = "X";
+        console.log("CROSS");
+    } else if (grid10.style.display === "flex") {
+        for (let i=0; i<currentAnswers.length; i++) {
+            if (selected === currentAnswers[i]) {
+                mistakes += 1;
+                mistakesCounter.innerHTML = mistakes;
+                console.log("WRONG ", mistakes);
+                color();
+                return;   
+            }
+        }
+        picSquares10[selected].innerHTML = "X";
+        console.log("CROSS");
+    } else if (grid15.style.display === "flex") {
+        for (let i=0; i<currentAnswers.length; i++) {
+            if (selected === currentAnswers[i]) {
+                mistakes += 1;
+                mistakesCounter.innerHTML = mistakes;
+                console.log("WRONG ", mistakes);
+                color();
+                return;   
+            }
+        }
+        picSquares15[selected].innerHTML = "X";
+        console.log("CROSS");
+    }
 }
 
 //Making Direction Pad Div
@@ -807,3 +881,32 @@ function selectSquare() {
     }
     console.log("selected ", selected);
 }
+
+//Making Game Info Div
+newDiv("gameInfoDiv", gameDisplayDiv);
+const gameInfoDiv = document.getElementById("gameInfoDiv");
+
+//Making Mistakes Div
+newDiv("mistakesDiv", gameInfoDiv);
+const mistakesDiv = document.getElementById("mistakesDiv");
+mistakesDiv.innerHTML = "Mistakes:";
+
+//Making Mistakes Counter
+newDiv("mistakesCounter", mistakesDiv);
+let mistakesCounter = document.getElementById("mistakesCounter");
+mistakesCounter.innerHTML = mistakes;
+
+//Making Timer Div
+newDiv("timerDiv", gameInfoDiv);
+const timerDiv = document.getElementById("timerDiv");
+timerDiv.innerHTML = "Timer:";
+
+//Making Timer Counter
+newDiv("timerCounter", timerDiv);
+let timerCounter = document.getElementById("timerCounter");
+timerCounter.innerHTML = timer;
+
+//Making Caption Div
+newDiv("captionDiv", gameInfoDiv);
+const captionDiv = document.getElementById("captionDiv");
+captionDiv.innerHTML = "";

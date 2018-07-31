@@ -394,3 +394,33 @@ body {
     height: 24px;
     border: 1px solid black;
 }
+
+#gameInfoDiv {
+    width: 246px;
+    height: 550px;
+    background-color: orange;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#mistakesDiv {
+    width: 246px;
+    height: 100px;
+    background-color: indianred;
+    text-align: center;
+}
+
+#timerDiv {
+    width: 246px;
+    height: 100px;
+    background-color: indianred;
+    text-align: center;
+}
+
+#captionDiv {
+    width: 246px;
+    height: 100px;
+    background-color: indianred;
+    text-align: center;
+}
