@@ -188,6 +188,7 @@ let levelImg = document.getElementsByClassName("levelImg");
 let levelSize = document.getElementsByClassName("levelSize");
 let currentAnswers = [];
 let currentHints = [];
+let selected, saved1, saved2, saved3, saved4, saved5, saved6;
 
 ////////////////////
 //Solution & Hints Elements
@@ -273,6 +274,10 @@ function goToLevel() {
         }
         console.log(6);
     }
+    picSquares5[0].style.border = "1px solid yellow";
+    picSquares10[0].style.border = "1px solid yellow";
+    picSquares15[0].style.border = "1px solid yellow";
+    selected = 0;
 }
 
 ////////////////////
@@ -459,6 +464,9 @@ const picRow5 = document.getElementsByClassName("picRow5");
 
 let hintSquares5 = document.getElementsByClassName("hintSquares5");
 let picSquares5 = document.getElementsByClassName("picSquares5");
+for (let i=0; i<picSquares5.length; i++) {
+    picSquares5[i].addEventListener("click", selectSquare);
+}
 
 ////////////////////
 //10x10 Grid Elements
@@ -493,6 +501,9 @@ const picRow10 = document.getElementsByClassName("picRow10");
 
 let hintSquares10 = document.getElementsByClassName("hintSquares10");
 let picSquares10 = document.getElementsByClassName("picSquares10");
+for (let i=0; i<picSquares10.length; i++) {
+    picSquares10[i].addEventListener("click", selectSquare);
+}
 
 ////////////////////
 //15x15 Grid Elements
@@ -527,3 +538,56 @@ const picRow15 = document.getElementsByClassName("picRow15");
 
 let hintSquares15 = document.getElementsByClassName("hintSquares15");
 let picSquares15 = document.getElementsByClassName("picSquares15");
+for (let i=0; i<picSquares15.length; i++) {
+    picSquares15[i].addEventListener("click", selectSquare);
+}
+
+function selectSquare() {
+    if (grid5.style.display === "flex") {
+        for (let i=0; i<picSquares5.length; i++) {
+            if (picSquares5[i].style.border === "1px solid yellow") {
+                console.log("change from ", i);
+                picSquares5[i].style.border = "1px solid black";
+            }
+        }
+        this.style.border = "1px solid yellow";
+        for (let i=0; i<picSquares5.length; i++) {
+            if (picSquares5[i].style.border === "1px solid yellow") {
+                console.log("change to ", i);
+                selected = i;
+            }
+        }
+    } else if (grid10.style.display === "flex") {
+        for (let i=0; i<picSquares10.length; i++) {
+            if (picSquares10[i].style.border === "1px solid yellow") {
+                console.log("change from ", i);
+                picSquares10[i].style.border = "1px solid black";
+            }
+        }
+        this.style.border = "1px solid yellow";
+        for (let i=0; i<picSquares10.length; i++) {
+            if (picSquares10[i].style.border === "1px solid yellow") {
+                console.log("change to ", i);
+                selected = i;
+            }
+        }
+    } else if (grid15.style.display === "flex") {
+        for (let i=0; i<picSquares15.length; i++) {
+            if (picSquares15[i].style.border === "1px solid yellow") {
+                console.log("change from ", i);
+                picSquares15[i].style.border = "1px solid black";
+            }
+        }
+        this.style.border = "1px solid yellow";
+        for (let i=0; i<picSquares15.length; i++) {
+            if (picSquares15[i].style.border === "1px solid yellow") {
+                console.log("change to ", i);
+                selected = i;
+            }
+        }
+    }
+    //make it select by click
+    //for loop if this square highlighted, unhighlight
+    //this.style.border (highlight)
+    //for loop if this square highlighted, selected = i
+}

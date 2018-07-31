@@ -300,6 +300,10 @@ body {
     width: 72px;
     height: 72px;
     border: 1px solid black;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    line-height: 175%;
 }
 
 .hintSquares10 {
