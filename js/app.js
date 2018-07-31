@@ -241,6 +241,13 @@ function goToLevel() {
         for (let i=0; i<hintSquares5.length; i++) {
             hintSquares5[i].innerHTML = currentHints[i];
         }
+        if (saved1) {
+            for (let i=0; i<picSquares5.length; i++) {
+                picSquares5[i].style.backgroundColor = saved1[i]
+                mistakesCounter.innerHTML = saved1[saved1.length-2]
+                timerCounter.innerHTML = saved1[saved1.length-1];
+            }
+        }
         console.log("Level 1");
     } else if (this.id.includes(2)) {
         grid5.style.display = "flex";
@@ -248,6 +255,13 @@ function goToLevel() {
         currentHints = level2Hints;
         for (let i=0; i<hintSquares5.length; i++) {
             hintSquares5[i].innerHTML = currentHints[i];
+        }
+        if (saved2) {
+            for (let i=0; i<picSquares5.length; i++) {
+                picSquares5[i].style.backgroundColor = saved2[i]
+                mistakesCounter.innerHTML = saved2[saved2.length-2]
+                timerCounter.innerHTML = saved2[saved2.length-1];
+            }
         }
         console.log("Level 2");
     } else if (this.id.includes(3)) {
@@ -257,6 +271,13 @@ function goToLevel() {
         for (let i=0; i<hintSquares10.length; i++) {
             hintSquares10[i].innerHTML = currentHints[i];
         }
+        if (saved3) {
+            for (let i=0; i<picSquares10.length; i++) {
+                picSquares10[i].style.backgroundColor = saved3[i]
+                mistakesCounter.innerHTML = saved3[saved3.length-2]
+                timerCounter.innerHTML = saved3[saved3.length-1];
+            }
+        }
         console.log("Level 3");
     } else if (this.id.includes(4)) {
         grid10.style.display = "flex";
@@ -264,6 +285,13 @@ function goToLevel() {
         currentHints = level4Hints;
         for (let i=0; i<hintSquares10.length; i++) {
             hintSquares10[i].innerHTML = currentHints[i];
+        }
+        if (saved4) {
+            for (let i=0; i<picSquares10.length; i++) {
+                picSquares10[i].style.backgroundColor = saved4[i]
+                mistakesCounter.innerHTML = saved4[saved4.length-2]
+                timerCounter.innerHTML = saved4[saved4.length-1];
+            }
         }
         console.log("Level 4");
     } else if (this.id.includes(5)) {
@@ -273,6 +301,13 @@ function goToLevel() {
         for (let i=0; i<hintSquares15.length; i++) {
             hintSquares15[i].innerHTML = currentHints[i];
         }
+        if (saved5) {
+            for (let i=0; i<picSquares15.length; i++) {
+                picSquares15[i].style.backgroundColor = saved5[i]
+                mistakesCounter.innerHTML = saved5[saved5.length-2]
+                timerCounter.innerHTML = saved5[saved5.length-1];
+            }
+        }
         console.log("Level 5");
     } else if (this.id.includes(6)) {
         grid15.style.display = "flex";
@@ -280,6 +315,13 @@ function goToLevel() {
         currentHints = level6Hints;
         for (let i=0; i<hintSquares15.length; i++) {
             hintSquares15[i].innerHTML = currentHints[i];
+        }
+        if (saved6) {
+            for (let i=0; i<picSquares15.length; i++) {
+                picSquares15[i].style.backgroundColor = saved6[i]
+                mistakesCounter.innerHTML = saved6[saved6.length-2]
+                timerCounter.innerHTML = saved6[saved6.length-1];
+            }
         }
         console.log("Level 6");
     }
@@ -365,6 +407,11 @@ function saveQuitGame() {
             }
             picSquares5[i].style.backgroundColor = null;
         }
+        if (currentHints === level1Hints) {
+            saved1.push(mistakes, timer);
+        } else {
+            saved2.push(mistakes, timer);
+        }
         picSquares5[selected].style.border = "1px solid black";
         grid5.style.display = "none";
     } else if (grid10.style.display === "flex") {
@@ -376,6 +423,11 @@ function saveQuitGame() {
             }
             picSquares10[i].style.backgroundColor = null;
         }
+        if (currentHints === level3Hints) {
+            saved3.push(mistakes, timer);
+        } else {
+            saved4.push(mistakes, timer);
+        }
         picSquares10[selected].style.border = "1px solid black";
         grid10.style.display = "none";
     } else if (grid15.style.display === "flex") {
@@ -386,6 +438,11 @@ function saveQuitGame() {
                 saved6[i] = picSquares15[i].style.backgroundColor;
             }
             picSquares15[i].style.backgroundColor = null;
+        }
+        if (currentHints === level5Hints) {
+            saved5.push(mistakes, timer);
+        } else {
+            saved6.push(mistakes, timer);
         }
         picSquares15[selected].style.border = "1px solid black";
         grid15.style.display = "none";
@@ -404,6 +461,7 @@ function color() {
         for (let i=0; i<currentAnswers.length; i++) {
             if (selected === currentAnswers[i]) {
                 picSquares5[selected].style.backgroundColor = "cornflowerblue";
+                picSquares5[selected].innerHTML = "";
                 console.log("COLOR");
                 return;   
             }
@@ -416,6 +474,7 @@ function color() {
         for (let i=0; i<currentAnswers.length; i++) {
             if (selected === currentAnswers[i]) {
                 picSquares10[selected].style.backgroundColor = "cornflowerblue";
+                picSquares10[selected].innerHTML = "";
                 console.log("COLOR");
                 return;   
             }
@@ -428,6 +487,7 @@ function color() {
         for (let i=0; i<currentAnswers.length; i++) {
             if (selected === currentAnswers[i]) {
                 picSquares15[selected].style.backgroundColor = "cornflowerblue";
+                picSquares15[selected].innerHTML = "";
                 console.log("COLOR");
                 return;   
             }
@@ -450,11 +510,7 @@ function cross() {
     if (grid5.style.display === "flex") {
         for (let i=0; i<currentAnswers.length; i++) {
             if (selected === currentAnswers[i]) {
-                mistakes += 1;
-                mistakesCounter.innerHTML = mistakes;
-                console.log("WRONG ", mistakes);
-                color();
-                return;   
+                picSquares5[selected].style.backgroundColor = null; 
             }
         }
         picSquares5[selected].innerHTML = "X";
@@ -462,11 +518,7 @@ function cross() {
     } else if (grid10.style.display === "flex") {
         for (let i=0; i<currentAnswers.length; i++) {
             if (selected === currentAnswers[i]) {
-                mistakes += 1;
-                mistakesCounter.innerHTML = mistakes;
-                console.log("WRONG ", mistakes);
-                color();
-                return;   
+                picSquares10[selected].style.backgroundColor = null;
             }
         }
         picSquares10[selected].innerHTML = "X";
@@ -474,11 +526,7 @@ function cross() {
     } else if (grid15.style.display === "flex") {
         for (let i=0; i<currentAnswers.length; i++) {
             if (selected === currentAnswers[i]) {
-                mistakes += 1;
-                mistakesCounter.innerHTML = mistakes;
-                console.log("WRONG ", mistakes);
-                color();
-                return;   
+                picSquares15[selected].style.backgroundColor = null; 
             }
         }
         picSquares15[selected].innerHTML = "X";
