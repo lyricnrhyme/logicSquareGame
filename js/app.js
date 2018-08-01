@@ -255,6 +255,15 @@ restartButton.addEventListener("click", restartGame);
 
 //Restart Game Function
 function restartGame() {
+    for (let i=0; i<currentPicSquares.length; i++) {
+        currentPicSquares[i].style.backgroundColor = null;
+        currentPicSquares[i].innerHTML = "";
+    }
+    mistakes = 0;
+    mistakesCounter.innerHTML = mistakes;
+    timer = 0;
+    timerCounter.innerHTML = timer;
+    optionsMenu.style.display = "none";
 }
 
 //Making Save & Quit Button
@@ -271,72 +280,24 @@ function saveQuitGame() {
     
     for (let i=0; i<currentPicSquares.length; i++) {
         if (currentPicSquares[i].style.backgroundColor) {
-            currentSaved[i][0] = "color";
+            currentSaved[i] = ["color"];
             currentSaved[i][1] = currentPicSquares[i].style.backgroundColor;
-        } else if (currentPicSquares[i].innerHTML) {
-            currentSaved[i][0] = "cross";
+        } else if (currentPicSquares[i].innerHTML === "X") {
+            currentSaved[i] = ["cross"];
             currentSaved[i][1] = currentPicSquares[i].innerHTML;
         } else {
             currentSaved[i] = [];
         }
-        
-        currentSaved[i] = currentPicSquares[i].style.backgroundColor;
         currentPicSquares[i].style.backgroundColor = null;
+        currentPicSquares[i].innerHTML = "";
     }
     currentSaved.push(mistakes, timer);
     currentPicSquares[selected].style.border = "1px solid black";
     currentGrid.style.display = "none";
     mistakesCounter.innerHTML = 0;
+    mistakes = 0;
+    timer = 0;
     timerCounter.innerHTML = 0;
-    // if (grid5.style.display === "flex") {
-    //     for (let i=0; i<picSquares5.length; i++) {
-    //         if (currentHints === level1Hints) {
-    //             saved1[i] = picSquares5[i].style.backgroundColor;
-    //         } else {
-    //             saved2[i] = picSquares5[i].style.backgroundColor;
-    //         }
-    //         picSquares5[i].style.backgroundColor = null;
-    //     }
-    //     if (currentHints === level1Hints) {
-    //         saved1.push(mistakes, timer);
-    //     } else {
-    //         saved2.push(mistakes, timer);
-    //     }
-    //     picSquares5[selected].style.border = "1px solid black";
-    //     grid5.style.display = "none";
-    // } else if (grid10.style.display === "flex") {
-    //     for (let i=0; i<picSquares10.length; i++) {
-    //         if (currentHints === level3Hints) {
-    //             saved3[i] = picSquares10[i].style.backgroundColor;
-    //         } else {
-    //             saved4[i] = picSquares10[i].style.backgroundColor;
-    //         }
-    //         picSquares10[i].style.backgroundColor = null;
-    //     }
-    //     if (currentHints === level3Hints) {
-    //         saved3.push(mistakes, timer);
-    //     } else {
-    //         saved4.push(mistakes, timer);
-    //     }
-    //     picSquares10[selected].style.border = "1px solid black";
-    //     grid10.style.display = "none";
-    // } else if (grid15.style.display === "flex") {
-    //     for (let i=0; i<picSquares15.length; i++) {
-    //         if (currentHints === level5Hints) {
-    //             saved5[i] = picSquares15[i].style.backgroundColor;
-    //         } else {
-    //             saved6[i] = picSquares15[i].style.backgroundColor;
-    //         }
-    //         picSquares15[i].style.backgroundColor = null;
-    //     }
-    //     if (currentHints === level5Hints) {
-    //         saved5.push(mistakes, timer);
-    //     } else {
-    //         saved6.push(mistakes, timer);
-    //     }
-    //     picSquares15[selected].style.border = "1px solid black";
-    //     grid15.style.display = "none";
-    // }
 }
 
 //Making Color Button
@@ -352,6 +313,15 @@ function color() {
             currentPicSquares[selected].style.backgroundColor = "cornflowerblue";
             currentPicSquares[selected].innerHTML = "";
             console.log("COLOR");
+            for (let j=0; j<currentAnswers.length; j++) {
+                if (!currentPicSquares[currentAnswers[j]].style.backgroundColor) {
+                    console.log("NOT COMPLETE");
+                    return;
+                }
+            }
+            captionDiv.innerHTML = "YOU WIN!";
+            finishGame.innerHTML = "Finish & Return to Level Select"
+            finishGame.addEventListener("click", finishGame);
             return;
         }
     }
@@ -781,8 +751,11 @@ finishGame.innerHTML = "";
 //Finish Function
 function finish() {
     //return to levelSelect
+    //detect selected level
     //reset selected level
     //replace ? pic with actual pic
+    //possibly save best time
+    //possibly save perfect score
 }
 
 ////////////////////
@@ -852,8 +825,13 @@ function goToLevel() {
     }
     if (currentSaved) {
         for (let i=0; i<currentPicSquares.length; i++) {
-            currentPicSquares[i].style.backgroundColor = currentSaved[i];
+            if (currentSaved[i][0] === "color") {
+                currentPicSquares[i].style.backgroundColor = currentSaved[i][1];
+            } else if (currentSaved[i][0] === "cross") {
+                currentPicSquares[i].innerHTML = "X";
+            }
             mistakesCounter.innerHTML = currentSaved[currentSaved.length-2];
+            mistakes = currentSaved[currentSaved.length-2];
             timerCounter.innerHTML = currentSaved[currentSaved.length-1];
         }
     }
