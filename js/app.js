@@ -2,7 +2,7 @@
 //Start Menu Elements
 ////////////////////
 
-function newDiv(idName, addTo) {
+function newDiv(idName, addTo, newVar) {
     let makeDiv = document.createElement("div");
     makeDiv.id = idName;
     addTo.appendChild(makeDiv);
@@ -191,6 +191,7 @@ let currentAnswers = [];
 let currentHints = [];
 let currentGrid;
 let currentPicSquares;
+let currentDirection;
 let selected;
 let mistakes = 0;
 let timer = 0;
@@ -223,6 +224,7 @@ menuButton.addEventListener("click", openMenu);
 //Open Menu Function
 function openMenu() {
     optionsMenu.style.display = "flex";
+    disable();
 }
 
 //Making Options Menu
@@ -239,6 +241,7 @@ returnButton.addEventListener("click", returnToGame);
 //Return To Game Function
 function returnToGame() {
     optionsMenu.style.display = "none";
+    enable();
 }
 
 //Making Rules Option Button
@@ -264,6 +267,7 @@ function restartGame() {
     timer = 0;
     timerCounter.innerHTML = timer;
     optionsMenu.style.display = "none";
+    enable();
 }
 
 //Making Save & Quit Button
@@ -278,6 +282,7 @@ function saveQuitGame() {
     optionsMenu.style.display = "none";
     levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
     
+    //Saves Current Squares and erases Grid
     for (let i=0; i<currentPicSquares.length; i++) {
         if (currentPicSquares[i].style.backgroundColor) {
             currentSaved[i] = ["color"];
@@ -298,6 +303,35 @@ function saveQuitGame() {
     mistakes = 0;
     timer = 0;
     timerCounter.innerHTML = 0;
+    enable();
+}
+
+//Disable Function
+function disable() {
+    menuButton.removeEventListener("click", openMenu);
+    colorButton.removeEventListener("click", color);
+    crossButton.removeEventListener("click", cross);
+    direction[1].removeEventListener("click", moveUp);
+    direction[3].removeEventListener("click", moveLeft);
+    direction[5].removeEventListener("click", moveRight);
+    direction[7].removeEventListener("click", moveDown);
+    for (let i=0; i<currentPicSquares.length; i++) {
+        currentPicSquares[i].removeEventListener("click", selectSquare);
+    }
+}
+
+//Enable Function
+function enable() {
+    menuButton.addEventListener("click", openMenu);
+    colorButton.addEventListener("click", color);
+    crossButton.addEventListener("click", cross);
+    direction[1].addEventListener("click", moveUp);
+    direction[3].addEventListener("click", moveLeft);
+    direction[5].addEventListener("click", moveRight);
+    direction[7].addEventListener("click", moveDown);
+    for (let i=0; i<currentPicSquares.length; i++) {
+        currentPicSquares[i].addEventListener("click", selectSquare);
+    }
 }
 
 //Making Color Button
@@ -312,6 +346,7 @@ function color() {
         if (selected === currentAnswers[i]) {
             currentPicSquares[selected].style.backgroundColor = "cornflowerblue";
             currentPicSquares[selected].innerHTML = "";
+            captionDiv.innerHTML = "";
             console.log("COLOR");
             for (let j=0; j<currentAnswers.length; j++) {
                 if (!currentPicSquares[currentAnswers[j]].style.backgroundColor) {
@@ -321,12 +356,13 @@ function color() {
             }
             captionDiv.innerHTML = "YOU WIN!";
             finishGame.innerHTML = "Finish & Return to Level Select"
-            finishGame.addEventListener("click", finishGame);
+            finishGame.addEventListener("click", finish);
             return;
         }
     }
     mistakes += 1;
     mistakesCounter.innerHTML = mistakes;
+    captionDiv.innerHTML = "WRONG MOVE :0";
     console.log("WRONG ", mistakes);
     cross();
 }
@@ -367,199 +403,70 @@ direction[7].addEventListener("click", moveDown);
 
 //Move Up Function
 function moveUp() {
-    console.log("UP");
-    if (grid5.style.display === "flex") {
-        for (let i=0; i<5; i) {
-            if (selected === i) {
-                picSquares5[selected].style.border = "1px solid black";
-                selected += 20;
-                picSquares5[selected].style.border = highlight;
-                return;
-            } else {
-                i += 1;
-            }
+    for (let i=currentDirection.up.startIndex; i<currentDirection.up.endIndex; i) {
+        if (selected === i) {
+            currentPicSquares[selected].style.border = "1px solid black";
+            selected += currentDirection.up.edgeMove;
+            currentPicSquares[selected].style.border = highlight;
+            return;
+        } else {
+            i += currentDirection.up.increment;
         }
-        picSquares5[selected].style.border = "1px solid black";
-        selected -= 5;
-        picSquares5[selected].style.border = highlight;
-
-    } else if (grid10.style.display === "flex") {
-        for (let i=0; i<10; i) {
-            if (selected === i) {
-                picSquares10[selected].style.border = "1px solid black";
-                selected += 90;
-                picSquares10[selected].style.border = highlight;
-                return;
-            } else {
-                i += 1;
-            }
-        }
-        picSquares10[selected].style.border = "1px solid black";
-        selected -= 10;
-        picSquares10[selected].style.border = highlight;
-    } else if (grid15.style.display === "flex") {
-        for (let i=0; i<15; i) {
-            if (selected === i) {
-                picSquares15[selected].style.border = "1px solid black";
-                selected += 210;
-                picSquares15[selected].style.border = highlight;
-                return;
-            } else {
-                i += 1;
-            }
-        }
-        picSquares15[selected].style.border = "1px solid black";
-        selected -= 15;
-        picSquares15[selected].style.border = highlight;
     }
-    console.log("selected ", selected);
+    currentPicSquares[selected].style.border = "1px solid black";
+    selected += currentDirection.up.regMove;
+    currentPicSquares[selected].style.border = highlight;
 }
 
 //Move Left Function
 function moveLeft() {
-    console.log("LEFT");
-    if (grid5.style.display === "flex") {
-        for (let i=0; i<21; i) {
-            if (selected === i) {
-                picSquares5[selected].style.border = "1px solid black";
-                selected += 4;
-                picSquares5[selected].style.border = highlight;
-                return;
-            } else {
-                i += 5;
-            }
+    for (let i=currentDirection.left.startIndex; i<currentDirection.left.endIndex; i) {
+        if (selected === i) {
+            currentPicSquares[selected].style.border = "1px solid black";
+            selected += currentDirection.left.edgeMove;
+            currentPicSquares[selected].style.border = highlight;
+            return;
+        } else {
+            i += currentDirection.left.increment;
         }
-        picSquares5[selected].style.border = "1px solid black";
-        selected -= 1;
-        picSquares5[selected].style.border = highlight;
-    } else if (grid10.style.display === "flex") {
-        for (let i=0; i<91; i) {
-            if (selected === i) {
-                picSquares10[selected].style.border = "1px solid black";
-                selected += 9;
-                picSquares10[selected].style.border = highlight;
-                return;
-            } else {
-                i += 10;
-            }
-        }
-        picSquares10[selected].style.border = "1px solid black";
-        selected -= 1;
-        picSquares10[selected].style.border = highlight;
-    } else if (grid15.style.display === "flex") {
-        for (let i=0; i<211; i) {
-            if (selected === i) {
-                picSquares15[selected].style.border = "1px solid black";
-                selected += 14;
-                picSquares15[selected].style.border = highlight;
-                return;
-            } else {
-                i += 15;
-            }
-        }
-        picSquares15[selected].style.border = "1px solid black";
-        selected -= 1;
-        picSquares15[selected].style.border = highlight;
     }
-    console.log("selected ", selected);
+    currentPicSquares[selected].style.border = "1px solid black";
+    selected += currentDirection.left.regMove;
+    currentPicSquares[selected].style.border = highlight;
 }
     
 //Move Right Function
 function moveRight() {
-    console.log("RIGHT");
-    if (grid5.style.display === "flex") {
-        for (let i=4; i<25; i) {
-            if (selected === i) {
-                picSquares5[selected].style.border = "1px solid black";
-                selected -= 4;
-                picSquares5[selected].style.border = highlight;
-                return;
-            } else {
-                i += 5;
-            }
+    for (let i=currentDirection.right.startIndex; i<currentDirection.right.endIndex; i) {
+        if (selected === i) {
+            currentPicSquares[selected].style.border = "1px solid black";
+            selected += currentDirection.right.edgeMove;
+            currentPicSquares[selected].style.border = highlight;
+            return;
+        } else {
+            i += currentDirection.right.increment;
         }
-        picSquares5[selected].style.border = "1px solid black";
-        selected += 1;
-        picSquares5[selected].style.border = highlight;
-    } else if (grid10.style.display === "flex") {
-        for (let i=9; i<100; i) {
-            if (selected === i) {
-                picSquares10[selected].style.border = "1px solid black";
-                selected -= 9;
-                picSquares10[selected].style.border = highlight;
-                return;
-            } else {
-                i += 10;
-            }
-        }
-        picSquares10[selected].style.border = "1px solid black";
-        selected += 1;
-        picSquares10[selected].style.border = highlight;
-    } else if (grid15.style.display === "flex") {
-        for (let i=14; i<225; i) {
-            if (selected === i) {
-                picSquares15[selected].style.border = "1px solid black";
-                selected -= 14;
-                picSquares15[selected].style.border = highlight;
-                return;
-            } else {
-                i += 15;
-            }
-        }
-        picSquares15[selected].style.border = "1px solid black";
-        selected += 1;
-        picSquares15[selected].style.border = highlight;
     }
-    console.log("selected ", selected);
+    currentPicSquares[selected].style.border = "1px solid black";
+    selected += currentDirection.right.regMove;
+    currentPicSquares[selected].style.border = highlight;
 }
         
 //Move Down Function
 function moveDown() {
-    console.log("DOWN");
-    if (grid5.style.display === "flex") {
-        for (let i=20; i<25; i) {
-            if (selected === i) {
-                picSquares5[selected].style.border = "1px solid black";
-                selected -= 20;
-                picSquares5[selected].style.border = highlight;
-                return;
-            } else {
-                i += 1;
-            }
+    for (let i=currentDirection.down.startIndex; i<currentDirection.down.endIndex; i) {
+        if (selected === i) {
+            currentPicSquares[selected].style.border = "1px solid black";
+            selected += currentDirection.down.edgeMove;
+            currentPicSquares[selected].style.border = highlight;
+            return;
+        } else {
+            i += currentDirection.down.increment;
         }
-        picSquares5[selected].style.border = "1px solid black";
-        selected += 5;
-        picSquares5[selected].style.border = highlight;
-    } else if (grid10.style.display === "flex") {
-        for (let i=90; i<100; i) {
-            if (selected === i) {
-                picSquares10[selected].style.border = "1px solid black";
-                selected -= 90;
-                picSquares10[selected].style.border = highlight;
-                return;
-            } else {
-                i += 1;
-            }
-        }
-        picSquares10[selected].style.border = "1px solid black";
-        selected += 10;
-        picSquares10[selected].style.border = highlight;
-    } else if (grid15.style.display === "flex") {
-        for (let i=210; i<225; i) {
-            if (selected === i) {
-                picSquares15[selected].style.border = "1px solid black";
-                selected -= 210;
-                picSquares15[selected].style.border = highlight;
-                return;
-            } else {
-                i += 1;
-            }
-        }
-        picSquares15[selected].style.border = "1px solid black";
-        selected += 15;
-        picSquares15[selected].style.border = highlight;
     }
-    console.log("selected ", selected);
+    currentPicSquares[selected].style.border = "1px solid black";
+    selected += currentDirection.down.regMove;
+    currentPicSquares[selected].style.border = highlight;
 }
 
 //Making Game Display Div
@@ -746,14 +653,33 @@ captionDiv.innerHTML = "";
 //Making Finish Button
 newDiv("finishGame", gameInfoDiv);
 const finishGame = document.getElementById("finishGame");
-finishGame.innerHTML = "";
+finishGame.innerHTML = "Picross in Progress";
 
 //Finish Function
 function finish() {
-    //return to levelSelect
-    //detect selected level
-    //reset selected level
-    //replace ? pic with actual pic
+    gameDiv.style.display = "none";
+    levelSelectTopDiv.style.display = "flex";
+    levelSelectDiv.style.display = "flex";
+    for (let i=0; i<levelList.length; i++) {
+        if (currentAnswers === levelList[i].answers) {
+            levelImg[i].src = levelImageArr[i];
+        }
+    }
+    for (let i=0; i<currentPicSquares.length; i++) {
+        currentPicSquares[i].style.backgroundColor = null;
+        currentPicSquares[i].innerHTML = "";
+    }
+    currentSaved = [];
+    currentPicSquares[selected].style.border = "1px solid black";
+    currentGrid.style.display = "none";
+    mistakesCounter.innerHTML = 0;
+    mistakes = 0;
+    timer = 0;
+    timerCounter.innerHTML = 0;
+    captionDiv.innerHTML = "";
+    finishGame.removeEventListener("click", finish);
+    finishGame.innerHTML = "Picross in Progress";
+
     //possibly save best time
     //possibly save perfect score
 }
@@ -788,13 +714,30 @@ const level5Hints = ["","","","","","",4,"",4,"","","","","","",4,"","","",3,3,1
 
 const level6Hints = ["","","","",1,"","","","","",1,"","","","","",5,4,4,1,1,1,1,1,1,1,4,4,5,"","",3,3,4,2,3,1,2,1,3,2,4,3,3,"",13,2,1,1,1,1,2,1,2,1,1,1,1,2,13,"","",4,4,"",4,5,4,"","",5,5,"","",4,4,"","",1,2,"","",1,1,1,3,3,1,4,1,1,4,"","",6,6,"","",5,5,"","",1,1,"",1,3,1,"","",2,2,1,1,1,1,"","","",11]; //120 squares
 
+//Direction Objects
+const directions5 = {up:{startIndex:0, endIndex:5, increment:1, edgeMove:20, regMove:-5}, 
+left:{startIndex:0, endIndex:21, increment:5, edgeMove:4, regMove:-1}, 
+right:{startIndex:4, endIndex:25, increment:5, edgeMove:-4, regMove:1}, 
+down:{startIndex:20, endIndex:25, increment:1, edgeMove:-20, regMove:5}}
+
+const directions10 = {up:{startIndex:0, endIndex:10, increment:1, edgeMove:90, regMove:-10}, 
+left:{startIndex:0, endIndex:91, increment:10, edgeMove:9, regMove:-1}, 
+right:{startIndex:9, endIndex:100, increment:10, edgeMove:-9, regMove:1}, 
+down:{startIndex:90, endIndex:100, increment:1, edgeMove:-90, regMove:10}}
+
+const directions15 = {up:{startIndex:0, endIndex:15, increment:1, edgeMove:210, regMove:-15}, 
+left:{startIndex:0, endIndex:211, increment:15, edgeMove:14, regMove:-1}, 
+right:{startIndex:14, endIndex:225, increment:15, edgeMove:-14, regMove:1}, 
+down:{startIndex:210, endIndex:225, increment:1, edgeMove:-210, regMove:15}}
+
+//LevelLists
 const levelList = 
-    [{id: 1, answers: level1Answers, hints: level1Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, saveFile: saved1},
-    {id: 2, answers: level2Answers, hints: level2Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, saveFile: saved2},
-    {id: 3, answers: level3Answers, hints: level3Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, saveFile: saved3},
-    {id: 4, answers: level4Answers, hints: level4Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, saveFile: saved4},
-    {id: 5, answers: level5Answers, hints: level5Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, saveFile: saved5},
-    {id: 6, answers: level6Answers, hints: level6Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, saveFile: saved6}]
+    [{id: 1, answers: level1Answers, hints: level1Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, direction: directions5, saveFile: saved1},
+    {id: 2, answers: level2Answers, hints: level2Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, direction: directions5, saveFile: saved2},
+    {id: 3, answers: level3Answers, hints: level3Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, direction: directions10, saveFile: saved3},
+    {id: 4, answers: level4Answers, hints: level4Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, direction: directions10, saveFile: saved4},
+    {id: 5, answers: level5Answers, hints: level5Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, direction: directions15, saveFile: saved5},
+    {id: 6, answers: level6Answers, hints: level6Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, direction: directions15, saveFile: saved6}]
 
 //Go To Level Function
 function goToLevel() {
@@ -811,6 +754,7 @@ function goToLevel() {
                 currentGrid = levelList[i].grid;
                 currentHintSquares = levelList[i].hintSquare;
                 currentPicSquares = levelList[i].picSquare;
+                currentDirection = levelList[i].direction;
                 currentSaved = levelList[i].saveFile;
             }
         }
@@ -823,6 +767,8 @@ function goToLevel() {
     for (let i=0; i<currentHintSquares.length; i++) {
         currentHintSquares[i].innerHTML = currentHints[i];
     }
+
+    //For Save Files
     if (currentSaved) {
         for (let i=0; i<currentPicSquares.length; i++) {
             if (currentSaved[i][0] === "color") {
