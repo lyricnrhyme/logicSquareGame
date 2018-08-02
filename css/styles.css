@@ -99,7 +99,6 @@ body {
     color: white;
     font-size: 30px;
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
@@ -166,9 +165,17 @@ body {
     margin-top: 10px;
 }
 
+.levelInfo {
+    width: 170px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .levelImg {
-    width: 150px;
-    height: 150px;
+    width: 100%;
 }
 
 .levelSize {
@@ -177,6 +184,28 @@ body {
     background-color: brown;
     font-size: 20px;
     line-height: 150%;
+}
+
+.completeInfo {
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.stars0, .stars1, .stars2, .stars3, .stars4, .stars5 {
+    width: 50px;
+}
+
+.bestTimeDiv {
+    width: 100%;
+    height: 70px;
+}
+
+.bestTime {
+    width: 100%;
+    height: 40px;
 }
 
 #gameDiv {

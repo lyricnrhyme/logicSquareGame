@@ -18,7 +18,7 @@ newDiv("rulesWindowDiv", document.body);
 const rulesWindowDiv = document.getElementById("rulesWindowDiv");
 rulesWindowDiv.style.display = "none";
 
-//Making Game Area
+//Making Start Game Div
 newDiv("startGameDiv", document.body);
 const startGameDiv = document.getElementById("startGameDiv");
 
@@ -32,11 +32,37 @@ const playButton = document.getElementById("playButton");
 playButton.innerHTML = "PLAY";
 playButton.addEventListener("click", goToLevelSelect);
 
+//Go to Level Selection Function
+function goToLevelSelect() {
+    titleDiv.style.display = "none";
+    startGameDiv.style.display = "none";
+    levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
+}
+
+//Making Start Menu Image Div
+newDiv("startImageDiv", startGameDiv);
+const startImageDiv = document.getElementById("startImageDiv");
+
+//Making Start Menu Image
+const startImage = document.createElement("img");
+startImage.id = "startImage";
+startImage.src = "assets/startGameImg.png";
+startImageDiv.appendChild(startImage);
+
 //Making Rules Button
 newDiv("rulesButton", startGameOptions);
 const rulesButton = document.getElementById("rulesButton");
 rulesButton.innerHTML = "RULES";
 rulesButton.addEventListener("click", openRules);
+
+//Open Rules Window Function
+function openRules() {
+    rulesWindowDiv.style.display = "flex";
+}
+
+////////////////////
+//Rules Menu Elements
+////////////////////
 
 //Making Rules Description Div
 newDiv("rulesDiv", rulesWindowDiv);
@@ -99,28 +125,6 @@ function closeRules() {
     rulesImage.style.backgroundImage = rulesImageArr[0];
 }
 
-//Direct to Level Selection Function
-function goToLevelSelect() {
-    titleDiv.style.display = "none";
-    startGameDiv.style.display = "none";
-    levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
-}
-
-//Open Rules Window Function
-function openRules() {
-    rulesWindowDiv.style.display = "flex";
-}
-
-//Making Start Menu Image Div
-newDiv("startImageDiv", startGameDiv);
-const startImageDiv = document.getElementById("startImageDiv");
-
-//Making Start Menu Image
-const startImage = document.createElement("img");
-startImage.id = "startImage";
-startImage.src = "assets/startGameImg.png";
-startImageDiv.appendChild(startImage);
-
 ////////////////////
 //Level Selection Elements
 ////////////////////
@@ -161,31 +165,67 @@ const levelImageArr = ["assets/level1Img.png", "assets/level2Img.png", "assets/l
 //Making Level Divs
 for (let i=0; i<6; i++) {
     let makeLevelDivs = document.createElement("div");
-    makeLevelDivs.id = "levelDiv" + (i+1);
     makeLevelDivs.className = "levelDiv";
     makeLevelDivs.addEventListener("click", (goToLevel));
     levelSelectDiv.appendChild(makeLevelDivs);
 
-    let makeLevelNum = document.createElement("div");
-    makeLevelNum.className = "levelNum";
-    makeLevelNum.innerHTML = "Level " + (i+1);
-    makeLevelDivs.appendChild(makeLevelNum);
+    let makeLevelInfo = document.createElement("div");
+    makeLevelInfo.className = "levelInfo";
+    makeLevelDivs.appendChild(makeLevelInfo)
 
     let makeLevelImg = document.createElement("img");
     makeLevelImg.className = "levelImg";
     makeLevelImg.src = "assets/notCompleteImg.png"
-    makeLevelDivs.appendChild(makeLevelImg);
+    makeLevelInfo.appendChild(makeLevelImg);
 
     let makeLevelSize = document.createElement("div");
     makeLevelSize.className = "levelSize";
     makeLevelSize.innerHTML = levelSizeArr[i];
-    makeLevelDivs.appendChild(makeLevelSize);
+    makeLevelInfo.appendChild(makeLevelSize);
+
+    let makeCompleteInfo = document.createElement("div");
+    makeCompleteInfo.className = "completeInfo";
+    makeLevelDivs.appendChild(makeCompleteInfo);
+
+    let makeLevelNum = document.createElement("div");
+    makeLevelNum.className = "levelNum";
+    makeLevelNum.innerHTML = "Level " + (i+1);
+    makeCompleteInfo.appendChild(makeLevelNum);
+
+    let makeScoreDiv = document.createElement("div");
+    makeScoreDiv.className = "scoreDiv";
+    makeScoreDiv.innerHTML = "Score:"
+    makeCompleteInfo.appendChild(makeScoreDiv);
+
+    let makeStarScore = document.createElement("div");
+    makeStarScore.className = "starScore";
+    makeScoreDiv.appendChild(makeStarScore);
+
+    for (let j=0; j<3; j++) {
+        let makeStars = document.createElement("img");
+        makeStars.className = "stars" + i;
+        makeStars.src = "assets/emptyStar.png";
+        makeStarScore.appendChild(makeStars);
+    }
+
+    let makeBestTimeDiv = document.createElement("div");
+    makeBestTimeDiv.className = "bestTimeDiv";
+    makeBestTimeDiv.innerHTML = "Best Time:";
+    makeCompleteInfo.appendChild(makeBestTimeDiv);
+
+    let makeBestTime = document.createElement("div");
+    makeBestTime.className = "bestTime";
+    makeBestTimeDiv.appendChild(makeBestTime);
 }
 
 let levelDiv = document.getElementsByClassName("levelDiv");
 let levelNum = document.getElementsByClassName("levelNum");
 let levelImg = document.getElementsByClassName("levelImg");
 let levelSize = document.getElementsByClassName("levelSize");
+let levelInfo = document.getElementsByClassName("levelInfo")
+let starScore = document.getElementsByClassName("starScore");
+let stars = document.getElementsByClassName("stars");
+let bestTime = document.getElementsByClassName("bestTime")
 let highlight = "1px solid yellow";
 let currentAnswers = [];
 let currentHints = [];
@@ -194,13 +234,64 @@ let currentPicSquares;
 let currentDirection;
 let selected;
 let mistakes = 0;
-let timer = 0;
+let time = 0;
+let timer;
 let saved1 = [];
 let saved2 = [];
 let saved3 = [];
 let saved4 = [];
 let saved5 = [];
 let saved6 = [];
+
+//Go To Level Function
+function goToLevel() {
+    levelSelectTopDiv.style.display = "none";
+    levelSelectDiv.style.display = "none";
+    gameDiv.style.display = "flex";
+    for (let i=0; i<levelDiv.length; i++) {
+        if (levelDiv[i] === this) {
+            console.log(i+1);
+            if (levelList[i].id === (i+1)) {
+                console.log(levelList[i]);
+                currentAnswers = levelList[i].answers;
+                currentHints = levelList[i].hints;
+                currentGrid = levelList[i].grid;
+                currentHintSquares = levelList[i].hintSquare;
+                currentPicSquares = levelList[i].picSquare;
+                currentDirection = levelList[i].direction;
+                currentSaved = levelList[i].saveFile;
+            }
+        }
+    }
+    mistakesCounter.innerHTML = 0;
+    currentPicSquares[0].style.border = highlight;
+    selected = 0;
+    currentGrid.style.display = "flex";
+    document.body.addEventListener("keydown", typeActions);
+    for (let i=0; i<currentHintSquares.length; i++) {
+        currentHintSquares[i].innerHTML = currentHints[i];
+    }
+    startTimer();
+
+    //For Save Files
+    if (currentSaved) {
+        for (let i=0; i<currentPicSquares.length; i++) {
+            if (currentSaved[i][0] === "color") {
+                currentPicSquares[i].style.backgroundColor = currentSaved[i][1];
+            } else if (currentSaved[i][0] === "cross") {
+                currentPicSquares[i].innerHTML = "X";
+            }
+            mistakesCounter.innerHTML = currentSaved[currentSaved.length-2];
+            mistakes = currentSaved[currentSaved.length-2];
+            time = currentSaved[currentSaved.length-1];
+            timerCounter.innerHTML = currentSaved[currentSaved.length-1];
+        }
+        stopTimer();
+        startTimer();
+        return;
+    }
+}
+
 
 ////////////////////
 //Game Grid Elements
@@ -225,6 +316,7 @@ menuButton.addEventListener("click", openMenu);
 function openMenu() {
     optionsMenu.style.display = "flex";
     disable();
+    stopTimer();
 }
 
 //Making Options Menu
@@ -242,6 +334,7 @@ returnButton.addEventListener("click", returnToGame);
 function returnToGame() {
     optionsMenu.style.display = "none";
     enable();
+    startTimer();
 }
 
 //Making Rules Option Button
@@ -264,8 +357,9 @@ function restartGame() {
     }
     mistakes = 0;
     mistakesCounter.innerHTML = mistakes;
-    timer = 0;
-    timerCounter.innerHTML = timer;
+    time = 0;
+    timerCounter.innerHTML = time;
+    startTimer();
     optionsMenu.style.display = "none";
     enable();
 }
@@ -278,11 +372,13 @@ saveQuitButton.addEventListener("click", saveQuitGame);
 
 //Save & Quit Function
 function saveQuitGame() {
+    stopTimer();
     gameDiv.style.display = "none";
     optionsMenu.style.display = "none";
     levelSelectTopDiv.style.display = "flex";levelSelectDiv.style.display = "flex";
     
     //Saves Current Squares and erases Grid
+    currentSaved
     for (let i=0; i<currentPicSquares.length; i++) {
         if (currentPicSquares[i].style.backgroundColor) {
             currentSaved[i] = ["color"];
@@ -296,14 +392,21 @@ function saveQuitGame() {
         currentPicSquares[i].style.backgroundColor = null;
         currentPicSquares[i].innerHTML = "";
     }
-    currentSaved.push(mistakes, timer);
+    if (currentSaved.length > currentPicSquares.length) {
+        console.log("hello?")
+        currentSaved.pop();
+        currentSaved.pop();
+    }
+    currentSaved[currentSaved.length] = mistakes;
+    currentSaved[currentSaved.length] = time;
     currentPicSquares[selected].style.border = "1px solid black";
     currentGrid.style.display = "none";
     mistakesCounter.innerHTML = 0;
     mistakes = 0;
-    timer = 0;
+    time = 0;
     timerCounter.innerHTML = 0;
     enable();
+    document.body.removeEventListener("keydown", typeActions);
 }
 
 //Disable Function
@@ -315,6 +418,7 @@ function disable() {
     direction[3].removeEventListener("click", moveLeft);
     direction[5].removeEventListener("click", moveRight);
     direction[7].removeEventListener("click", moveDown);
+    document.body.removeEventListener("keydown", typeActions);
     for (let i=0; i<currentPicSquares.length; i++) {
         currentPicSquares[i].removeEventListener("click", selectSquare);
     }
@@ -329,10 +433,15 @@ function enable() {
     direction[3].addEventListener("click", moveLeft);
     direction[5].addEventListener("click", moveRight);
     direction[7].addEventListener("click", moveDown);
+    document.body.addEventListener("keydown", typeActions);
     for (let i=0; i<currentPicSquares.length; i++) {
         currentPicSquares[i].addEventListener("click", selectSquare);
     }
 }
+
+////////////////////
+//Puzzle Edit Elements
+////////////////////
 
 //Making Color Button
 newDiv("colorButton", gameControlsDiv);
@@ -354,9 +463,11 @@ function color() {
                     return;
                 }
             }
+            stopTimer();
             captionDiv.innerHTML = "YOU WIN!";
             finishGame.innerHTML = "Finish & Return to Level Select"
             finishGame.addEventListener("click", finish);
+            disable();
             return;
         }
     }
@@ -380,9 +491,17 @@ function cross() {
             currentPicSquares[selected].style.backgroundColor = null;
         }
     }
-    currentPicSquares[selected].innerHTML = "X";
+    if (currentPicSquares[selected].innerHTML === "") {
+        currentPicSquares[selected].innerHTML = "X";
+    } else {
+        currentPicSquares[selected].innerHTML = "";
+    }
     console.log("CROSS");
 }
+
+////////////////////
+//Direction Elements
+////////////////////
 
 //Making Direction Pad Div
 newDiv("dpadDiv", gameControlsDiv);
@@ -469,6 +588,22 @@ function moveDown() {
     currentPicSquares[selected].style.border = highlight;
 }
 
+//Keyboard Actions Function
+function typeActions(event) {
+    var key = event.keyCode;
+    console.log(key);
+    if (key === 37) {moveLeft()} 
+    else if (key === 38) {moveUp();} 
+    else if (key === 39) {moveRight();} 
+    else if (key === 40) {moveDown();} 
+    else if (key === 70) {color();} 
+    else if (key === 65) {cross();}
+}
+
+////////////////////
+//Creating Types of Grids
+////////////////////
+
 //Making Game Display Div
 newDiv("gameDisplayDiv", gameDiv);
 const gameDisplayDiv = document.getElementById("gameDisplayDiv")
@@ -489,6 +624,25 @@ function makeGrid(rows, columns, rowName, squareName, append) {
             makeRows.appendChild(makeSquares);
         }
     }
+}
+
+//Select Square Function
+function selectSquare() {
+    for (let i=0; i<currentPicSquares.length; i++) {
+        if (currentPicSquares[i].style.border === highlight) {
+            console.log("change from ", i);
+            currentPicSquares[i].style.border = "1px solid black";
+        }
+    }
+    this.style.border = "1px solid yellow";
+    for (let i=0; i<currentPicSquares.length; i++) {
+        if (currentPicSquares[i].style.border === highlight) {
+            console.log("change to ", i);
+            selected = i;
+        }
+    }
+    console.log("selected ", selected);
+    console.log("************");
 }
 
 ////////////////////
@@ -602,24 +756,9 @@ for (let i=0; i<picSquares15.length; i++) {
     picSquares15[i].addEventListener("click", selectSquare);
 }
 
-//Select Square Function
-function selectSquare() {
-    for (let i=0; i<currentPicSquares.length; i++) {
-        if (currentPicSquares[i].style.border === highlight) {
-            console.log("change from ", i);
-            currentPicSquares[i].style.border = "1px solid black";
-        }
-    }
-    this.style.border = "1px solid yellow";
-    for (let i=0; i<currentPicSquares.length; i++) {
-        if (currentPicSquares[i].style.border === highlight) {
-            console.log("change to ", i);
-            selected = i;
-        }
-    }
-    console.log("selected ", selected);
-    console.log("************");
-}
+////////////////////
+//Additional Game Info Elements
+////////////////////
 
 //Making Game Info Div
 newDiv("gameInfoDiv", gameDisplayDiv);
@@ -645,6 +784,22 @@ newDiv("timerCounter", timerDiv);
 let timerCounter = document.getElementById("timerCounter");
 timerCounter.innerHTML = 0;
 
+//Start Timer Function
+function startTimer() {
+    timer = setInterval(addToTimer, 1000);
+}
+
+//Game Timer Function
+function addToTimer() {
+    time += 1;
+    timerCounter.innerHTML = time;
+}
+
+//Stop Timer Function
+function stopTimer() {
+    clearInterval(timer);
+}
+
 //Making Caption Div
 newDiv("captionDiv", gameInfoDiv);
 const captionDiv = document.getElementById("captionDiv");
@@ -663,8 +818,24 @@ function finish() {
     for (let i=0; i<levelList.length; i++) {
         if (currentAnswers === levelList[i].answers) {
             levelImg[i].src = levelImageArr[i];
+            if (bestTime[i].innerHTML === "") {
+                bestTime[i].innerHTML = time;
+            } else if (time < bestTime[i].innerHTML) {
+                bestTime[i].innerHTML = time;
+            }
+            document.getElementsByClassName("stars"+i)[0].src = "assets/filledStar.png";
+            if (time <= levelList[i].time && mistakes === 0) {
+                document.getElementsByClassName("stars"+i)[1].src = "assets/filledStar.png";
+                document.getElementsByClassName("stars"+i)[2].src = "assets/filledStar.png";
+            } else if (time <= levelList[i].time) {
+                document.getElementsByClassName("stars"+i)[1].src = "assets/filledStar.png";
+            } else if (mistakes === 0) {
+                document.getElementsByClassName("stars"+i)[1].src = "assets/filledStar.png";
+
+            }
         }
     }
+
     for (let i=0; i<currentPicSquares.length; i++) {
         currentPicSquares[i].style.backgroundColor = null;
         currentPicSquares[i].innerHTML = "";
@@ -674,11 +845,13 @@ function finish() {
     currentGrid.style.display = "none";
     mistakesCounter.innerHTML = 0;
     mistakes = 0;
-    timer = 0;
+    time = 0;
     timerCounter.innerHTML = 0;
     captionDiv.innerHTML = "";
     finishGame.removeEventListener("click", finish);
     finishGame.innerHTML = "Picross in Progress";
+    enable();
+    document.body.removeEventListener("keydown", typeActions);
 
     //possibly save best time
     //possibly save perfect score
@@ -697,7 +870,7 @@ const level3Answers = [1,3,10,12,14,22,41,42,43,44,47,49,50,51,52,53,54,55,57,58
 
 const level4Answers = [2,3,6,7,11,12,13,14,15,16,17,18,20,21,22,23,25,27,28,29,30,31,32,38,39,40,41,42,48,49,50,51,52,53,57,58,59,61,62,63,64,66,67,68,72,73,74,75,76,77,83,84,85,86,94,95]; //100 squares
 
-const level5Answers = [0,1,2,3,6,7,8,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,48,49,50,51,53,54,55,56,59,61,73,76,77,87,88,90,91,92,94,95,96,98,99,100,102,103,104,105,106,107,110,114,117,118,119,120,121,122,132,133,134,136,137,138,146,147,148,151,152,153,157,161,162,163,165,166,167,168,171,173,176,177,178,179,180,181,182,183,184,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,216,217,218,221,222,223,224]; //225 squares
+const level5Answers = [0,1,2,3,6,7,8,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,48,49,50,51,52,53,54,55,56,59,61,73,76,77,87,88,90,91,92,94,95,96,98,99,100,102,103,104,105,106,107,110,114,117,118,119,120,121,122,132,133,134,136,137,138,146,147,148,151,152,153,157,161,162,163,165,166,167,168,171,173,176,177,178,179,180,181,182,183,184,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,216,217,218,221,222,223,224]; //225 squares
 
 const level6Answers = [0,1,2,3,11,12,13,14,15,16,17,18,20,21,22,23,24,26,27,28,29,30,31,32,33,34,40,41,42,43,44,45,46,47,48,56,57,58,59,60,61,73,74,75,89,90,93,94,95,99,100,101,104,105,106,107,108,110,114,116,117,118,119,120,121,122,123,124,125,129,130,131,132,133,134,135,136,137,138,139,145,146,147,148,149,150,164,165,171,172,173,179,180,181,187,193,194,196,201,203,208,212,213,214,215,216,217,218,219,220,221,222]; //225 squares
 
@@ -710,7 +883,7 @@ const level3Hints = ["",1,"","","","","","","","",1,2,2,1,1,"","",2,"","",4,3,6,
 
 const level4Hints = ["","","","","","","","","","","","","",3,1,2,2,3,"","",4,6,8,4,4,3,3,3,6,4,"",2,2,"","",8,4,1,3,"",3,2,"",3,2,"",4,3,"",4,3,"","",6,"","",4,"","",2]; //60 squares
 
-const level5Hints = ["","","","","","",4,"",4,"","","","","","",4,"","","",3,3,1,4,1,3,3,"","","",4,3,3,3,4,1,2,1,2,1,2,1,4,3,3,3,4,11,10,6,2,1,2,2,2,1,2,6,10,11,4,"",4,3,4,"","","",15,"","","",15,"",1,9,1,"","",1,1,"","",2,2,3,3,3,3,3,1,1,3,"","",3,3,"",3,1,3,"",3,1,3,4,1,1,4,"","",5,5,"","","",15,"",4,3,4]; //120 squares
+const level5Hints = ["","","","","","",4,"",4,"","","","","","",4,"","","",3,3,1,4,1,3,3,"","","",4,3,3,3,4,1,2,1,2,1,2,1,4,3,3,3,4,11,10,6,2,1,2,2,2,1,2,6,10,11,4,"",4,3,4,"","","",15,"","","",15,"",1,9,1,"","",1,1,"","",2,2,3,3,3,3,3,1,1,3,"","",3,3,"","",3,3,"",3,1,3,4,1,1,4,"","",5,5,"","","",15,"",4,3,4]; //120 squares
 
 const level6Hints = ["","","","",1,"","","","","",1,"","","","","",5,4,4,1,1,1,1,1,1,1,4,4,5,"","",3,3,4,2,3,1,2,1,3,2,4,3,3,"",13,2,1,1,1,1,2,1,2,1,1,1,1,2,13,"","",4,4,"",4,5,4,"","",5,5,"","",4,4,"","",1,2,"","",1,1,1,3,3,1,4,1,1,4,"","",6,6,"","",5,5,"","",1,1,"",1,3,1,"","",2,2,1,1,1,1,"","","",11]; //120 squares
 
@@ -732,53 +905,9 @@ down:{startIndex:210, endIndex:225, increment:1, edgeMove:-210, regMove:15}}
 
 //LevelLists
 const levelList = 
-    [{id: 1, answers: level1Answers, hints: level1Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, direction: directions5, saveFile: saved1},
-    {id: 2, answers: level2Answers, hints: level2Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, direction: directions5, saveFile: saved2},
-    {id: 3, answers: level3Answers, hints: level3Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, direction: directions10, saveFile: saved3},
-    {id: 4, answers: level4Answers, hints: level4Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, direction: directions10, saveFile: saved4},
-    {id: 5, answers: level5Answers, hints: level5Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, direction: directions15, saveFile: saved5},
-    {id: 6, answers: level6Answers, hints: level6Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, direction: directions15, saveFile: saved6}]
-
-//Go To Level Function
-function goToLevel() {
-    levelSelectTopDiv.style.display = "none";
-    levelSelectDiv.style.display = "none";
-    gameDiv.style.display = "flex";
-    for (let i=0; i<levelDiv.length; i++) {
-        if (levelDiv[i] === this) {
-            console.log(i+1);
-            if (levelList[i].id === (i+1)) {
-                console.log(levelList[i]);
-                currentAnswers = levelList[i].answers;
-                currentHints = levelList[i].hints;
-                currentGrid = levelList[i].grid;
-                currentHintSquares = levelList[i].hintSquare;
-                currentPicSquares = levelList[i].picSquare;
-                currentDirection = levelList[i].direction;
-                currentSaved = levelList[i].saveFile;
-            }
-        }
-    }
-    mistakesCounter.innerHTML = 0;
-    timerCounter.innerHTML = 0;
-    currentPicSquares[0].style.border = highlight;
-    selected = 0;
-    currentGrid.style.display = "flex";
-    for (let i=0; i<currentHintSquares.length; i++) {
-        currentHintSquares[i].innerHTML = currentHints[i];
-    }
-
-    //For Save Files
-    if (currentSaved) {
-        for (let i=0; i<currentPicSquares.length; i++) {
-            if (currentSaved[i][0] === "color") {
-                currentPicSquares[i].style.backgroundColor = currentSaved[i][1];
-            } else if (currentSaved[i][0] === "cross") {
-                currentPicSquares[i].innerHTML = "X";
-            }
-            mistakesCounter.innerHTML = currentSaved[currentSaved.length-2];
-            mistakes = currentSaved[currentSaved.length-2];
-            timerCounter.innerHTML = currentSaved[currentSaved.length-1];
-        }
-    }
-}
+[{id: 1, answers: level1Answers, hints: level1Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, direction: directions5, time: 120, saveFile: saved1},
+{id: 2, answers: level2Answers, hints: level2Hints, hintSquare: hintSquares5, grid: grid5, picSquare: picSquares5, direction: directions5, time: 120, saveFile: saved2},
+{id: 3, answers: level3Answers, hints: level3Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, direction: directions10, time: 600, saveFile: saved3},
+{id: 4, answers: level4Answers, hints: level4Hints, hintSquare: hintSquares10, grid: grid10, picSquare: picSquares10, direction: directions10, time: 600, saveFile: saved4},
+{id: 5, answers: level5Answers, hints: level5Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, direction: directions15, time: 9000, saveFile: saved5},
+{id: 6, answers: level6Answers, hints: level6Hints, hintSquare: hintSquares15, grid: grid15, picSquare: picSquares15, direction: directions15, time: 9000, saveFile: saved6}];
