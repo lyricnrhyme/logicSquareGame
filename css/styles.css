@@ -1,105 +1,113 @@
 body {
-    background-color: khaki
+    background-color: khaki;
+    margin: auto;
 }
 
 #titleDiv {
-    width: 1000px;
-    height: 100px;
+    width: 100%;
+    height: 18vh;
     background-color: red;
     color: white;
     text-align: center;
-    font-size: 50px;
-    line-height: 150%;
+    font-size: 40px;
+    line-height: 130%;
 }
 
 #startGameDiv {
-    width: 1000px;
-    height: 450px;
+    width: 100%;
+    height: 82vh;
     background-color: blue;
     display: flex;
+    flex-direction: column-reverse;
     justify-content: flex-start;
 }
 
 #startGameOptions {
-    width: 400px;
-    height:450px;
+    width: 100%;
+    height:18vh;
     background-color: green;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
 }
 
 #playButton, #rulesButton {
-    width: 300px;
-    height:100px;
+    width: 40%;
+    height:12vh;
     background-color: purple;
     text-align: center;
     color: white;
-    font-size: 50px;
-    line-height: 150%;
+    font-size: 35px;
+    line-height: 170%;
     margin-top: 10px;
 }
 
 #startImageDiv {
-    width: 500px;
-    height: 450px;
-    background-color: aqua;
+    width: 100%;
+    height: 90%;
+    /* background-color: aqua; */
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 #startImage {
-    width: 450px;
-    height: 450px;
+    width: 100%;
 }
 
 #levelSelectTopDiv {
-    width: 1000px;
-    height: 100px;
+    width: 100%;
+    height: 15vh;
     background-color: red;
     color: white;
-    font-size: 50px;
-    line-height: 150%;
+    font-size: 33px;
+    line-height: 130%;
 }
 
 #returnToStart {
-    width: 300px;
-    height:100px;
-    background-color: purple;
+    width: 30%;
+    height: 15vh;
+    /* background-color: purple; */
     text-align: center;
     color: white;
-    font-size: 50px;
     line-height: 150%;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #levelSelectTitle {
-    width: 500px;
-    height: 100px;
+    width: 70%;
+    height: 15vh;
     background-color: hotpink;
     text-align: center;
 }
 
 #levelSelectDiv {
-    width: 1000px;
-    height: 450px;
+    width: 100%;
+    height: 100%;
     background-color: orange;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .levelDiv {
-    width: 33%;
-    height: 48%;
+    width: 100%;
+    height: 60%;
     background-color: green;
     text-align: center;
     color: white;
     font-size: 30px;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    border: 2px solid yellow
 }
 
 #rulesWindowDiv {
@@ -166,8 +174,8 @@ body {
 }
 
 .levelInfo {
-    width: 170px;
-    height: 100%;
+    width: 100%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -175,72 +183,80 @@ body {
 }
 
 .levelImg {
-    width: 100%;
+    width: 60%;
 }
 
 .levelSize {
-    width: 150px;
+    width: 100%;
     height: 30px;
-    background-color: brown;
-    font-size: 20px;
-    line-height: 150%;
+    /* background-color: brown; */
+    font-size: 25px;
+    line-height: 120%;
 }
 
 .completeInfo {
-    width: 55%;
-    height: 100%;
+    width: 100%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
+.starScore {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .stars0, .stars1, .stars2, .stars3, .stars4, .stars5 {
-    width: 50px;
+    width: 16%;
+    margin: 3px;
 }
 
 .bestTimeDiv {
     width: 100%;
-    height: 70px;
+    height: 20%;
+    display: flex;
+    text-align: center;
+    float: right;
+    justify-content: space-between;
+    background-color: rebeccapurple;
 }
 
 .bestTime {
-    width: 100%;
-    height: 40px;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    background-color: orange;
 }
 
 #gameDiv {
-    width: 1000px;
-    height: 550px;
+    width: 100vw;
+    height: 100vh;
     background-color: salmon;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 #gameControlsDiv {
-    width: 250px;
-    height: 550px;
+    width: 100vw;
+    height: 20vh;
     background-color: hotpink;
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
-#menuButton {
-    width: 200px;
-    height: 80px;
-    background-color: goldenrod;
-    text-align: center;
-    line-height: 150%;
-    font-size: 50px;
-}
-
 #optionsMenu {
-    width: 450px;
-    height: 400px;
+    width: 80vw;
+    height: 70vh;
     background-color: aqua;
     position: absolute;
     z-index: 2;
-    top: 80px;
-    left: 350px;
+    top: 10vh;
+    left: 10vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -248,23 +264,23 @@ body {
 }
 
 #returnButton, #rulesOptButton, #restartButton, #saveQuitButton {
-    width: 300px;
-    height: 80px;
+    width: 80%;
+    height: 20%;
     background-color: red;
     text-align: center;
-    font-size: 40px;
-    line-height: 150%;
+    font-size: 30px;
+    line-height: 200%;
 }
 
 #colorButton, #crossButton {
-    width: 120px;
-    height: 120px;
+    width: 30%;
+    height: 40%;
     background-color: burlywood;
 }
 
 #dpadDiv {
-    width: 150px;
-    height: 150px;
+    width: 10vh;
+    height: 10vh;
     background-size: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -276,22 +292,26 @@ body {
 }
 
 #gameDisplayDiv {
-    width: 750px;
-    height: 550px;
+    width: 100vw;
+    height: 80vh;
     display: flex;
-    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: center;
     background-color: royalblue;
 }
 
 #gameGridDiv {
-    width: 504px;
-    height: 504px;
+    width: 100vw;
+    height: 70vh;
     background-color: tomato;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #grid5, #grid10, #grid15 {
-    width: 504px;
-    height: 504px;
+    width: 95vw;
+    height: 95vw;
     border: 1px solid black;
     display: flex;
     align-items: flex-end;
@@ -299,8 +319,8 @@ body {
 }
 
 #topHints5, #topHints10, #topHints15 {
-    width: 360px;
-    height: 144px;
+    width: 67.857vw;
+    height: 27.143vw;
     background-color: blue;
     display: flex;
     flex-direction: column;
@@ -308,115 +328,115 @@ body {
 }
 
 .topRow5 {
-    width: 360px;
-    height: 72px;
+    width: 67.857vw;
+    height: 13.571vw;
     display: flex;
 }
 
 .topRow10 {
-    width: 360px;
-    height: 36px;
+    width: 67.857vw;
+    height: 6.785vw;
     display: flex;
 }
 
 .topRow15 {
-    width: 360px;
-    height: 24px;
+    width: 67.857vw;
+    height: 4.523vw;
     display: flex;
 }
 
 .hintSquares5 {
-    width: 72px;
-    height: 72px;
+    width: 13.571vw;
+    height: 13.571vw;
     border: 1px solid black;
     color: white;
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     line-height: 175%;
 }
 
 .hintSquares10 {
-    width: 36px;
-    height: 36px;
+    width: 6.785vw;
+    height: 6.785vw;
     border: 1px solid black;
     color: white;
     text-align: center;
-    font-size: 23px;
-    line-height: 175%;
+    font-size: 20px;
+    line-height: 150%;
 }
 
 .hintSquares15 {
-    width: 24px;
-    height: 24px;
+    width: 4.523vw;
+    height: 4.523vw;
     border: 1px solid black;
     color: white;
     text-align: center;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 175%;
 }
 
 #bottomDiv5, #bottomDiv10, #bottomDiv15 {
-    width: 504px;
-    height: 360px;
+    width: 95vw;
+    height: 67.857vw;
     background-color: green;
     display: flex;
 }
 
 #leftHints5, #leftHints10, #leftHints15 {
-    width: 144px;
-    height: 360px;
+    width: 27.143vw;
+    height: 67.857vw;
     background-color: blue;
     display: flex;
     flex-direction: column;
 }
 
 .leftRow5 {
-    width: 144px;
-    height: 72px;
+    width: 27.143vw;
+    height: 13.571vw;
     display: flex;
 }
 
 .leftRow10 {
-    width: 144px;
-    height: 36px;
+    width: 27.143vw;
+    height: 6.785vw;
     display: flex;
     justify-content: flex-end;
 }
 
 .leftRow15 {
-    width: 144px;
-    height: 24px;
+    width: 27.143vw;
+    height: 4.523vw;
     display: flex;
     justify-content: flex-end;
 }
 
 #picGrid5, #picGrid10, #picGrid15 {
-    width: 360px;
-    height: 360px;
+    width: 67.857vw;
+    height: 67.857vw;
     background-color: pink;
 }
 
 .picRow5 {
-    width: 360px;
-    height: 72px;
+    width: 67.857vw;
+    height: 13.571vw;
     display: flex;
 }
 
 .picRow10 {
-    width: 360px;
-    height: 36px;
+    width: 67.857vw;
+    height: 6.785vw;
     display: flex;
 }
 
 .picRow15 {
-    width: 360px;
-    height: 24px;
+    width: 67.857vw;
+    height: 4.523vw;
     display: flex;
 }
 
 .picSquares5 {
-    width: 72px;
-    height: 72px;
+    width: 13.571vw;
+    height: 13.571vw;
     border: 1px solid black;
     text-align: center;
     font-size: 40px;
@@ -424,8 +444,8 @@ body {
 }
 
 .picSquares10 {
-    width: 36px;
-    height: 36px;
+    width: 6.785vw;
+    height: 6.785vw;
     border: 1px solid black;
     text-align: center;
     font-size: 23px;
@@ -433,8 +453,8 @@ body {
 }
 
 .picSquares15 {
-    width: 24px;
-    height: 24px;
+    width: 4.523vw;
+    height: 4.523vw;
     border: 1px solid black;
     text-align: center;
     font-size: 15px;
@@ -442,14 +462,14 @@ body {
 }
 
 #gameInfoDiv {
-    width: 246px;
-    height: 550px;
+    width: 100vw;
+    height: 10vh;
     background-color: orange;
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
 }
 
+/*
 #mistakesDiv {
     width: 246px;
     height: 100px;
@@ -471,9 +491,9 @@ body {
     text-align: center;
 }
 
-#finishGame {
+#menuButton {
     width: 246px;
     height: 100px;
     background-color: indianred;
     text-align: center;
-}
+} */

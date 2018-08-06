@@ -2,7 +2,7 @@
 //Start Menu Elements
 ////////////////////
 
-function newDiv(idName, addTo, newVar) {
+function newDiv(idName, addTo) {
     let makeDiv = document.createElement("div");
     makeDiv.id = idName;
     addTo.appendChild(makeDiv);
@@ -11,7 +11,7 @@ function newDiv(idName, addTo, newVar) {
 //Making Title Div
 newDiv("titleDiv", document.body);
 const titleDiv = document.getElementById("titleDiv");
-titleDiv.innerHTML = "LOGIC SQUARES";
+titleDiv.innerHTML = "LOGIC <br> SQUARES";
 
 //Making Rules Window Div
 newDiv("rulesWindowDiv", document.body);
@@ -137,7 +137,7 @@ levelSelectTopDiv.style.display = "none";
 //Making Return to Start Button
 newDiv("returnToStart", levelSelectTopDiv);
 const returnToStart = document.getElementById("returnToStart");
-returnToStart.innerHTML = "RETURN";
+returnToStart.style.backgroundImage = 'url("assets/returnArrow.png")'
 returnToStart.addEventListener("click", goToStart);
 
 //Return to Start Menu Function
@@ -151,7 +151,7 @@ function goToStart() {
 //Making Level Select Title
 newDiv("levelSelectTitle", levelSelectTopDiv);
 const levelSelectTitle = document.getElementById("levelSelectTitle");
-levelSelectTitle.innerHTML = "CHOOSE LEVEL";
+levelSelectTitle.innerHTML = "CHOOSE <br> LEVEL";
 
 //Making Level Selection Div
 newDiv("levelSelectDiv", document.body);
@@ -306,12 +306,6 @@ gameDiv.style.display = "none";
 newDiv("gameControlsDiv", gameDiv);
 const gameControlsDiv = document.getElementById("gameControlsDiv");
 
-//Making Game Menu Button
-newDiv("menuButton", gameControlsDiv);
-const menuButton = document.getElementById("menuButton");
-menuButton.innerHTML = "MENU";
-menuButton.addEventListener("click", openMenu);
-
 //Open Menu Function
 function openMenu() {
     optionsMenu.style.display = "flex";
@@ -465,8 +459,9 @@ function color() {
             }
             stopTimer();
             captionDiv.innerHTML = "YOU WIN!";
-            finishGame.innerHTML = "Finish & Return to Level Select"
-            finishGame.addEventListener("click", finish);
+            menuButton.innerHTML = "Finish & Return to Level Select"
+            menuButton.removeEventListener("click", openMenu);
+            menuButton.addEventListener("click", finish);
             disable();
             return;
         }
@@ -805,10 +800,11 @@ newDiv("captionDiv", gameInfoDiv);
 const captionDiv = document.getElementById("captionDiv");
 captionDiv.innerHTML = "";
 
-//Making Finish Button
-newDiv("finishGame", gameInfoDiv);
-const finishGame = document.getElementById("finishGame");
-finishGame.innerHTML = "Picross in Progress";
+//Making Menu/Finish Button
+newDiv("menuButton", gameInfoDiv);
+const menuButton = document.getElementById("menuButton");
+menuButton.addEventListener("click", openMenu);
+menuButton.innerHTML = "MENU";
 
 //Finish Function
 function finish() {
@@ -848,8 +844,9 @@ function finish() {
     time = 0;
     timerCounter.innerHTML = 0;
     captionDiv.innerHTML = "";
-    finishGame.removeEventListener("click", finish);
-    finishGame.innerHTML = "Picross in Progress";
+    menuButton.removeEventListener("click", finish);
+    menuButton.addEventListener("click", openMenu);
+    menuButton.innerHTML = "Menu";
     enable();
     document.body.removeEventListener("keydown", typeActions);
 
